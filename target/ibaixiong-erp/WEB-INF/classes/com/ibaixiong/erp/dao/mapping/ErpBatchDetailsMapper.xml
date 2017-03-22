@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ibaixiong.erp.dao.sysset.ErpBatchDetailsDao" >
+  <resultMap id="BaseResultMap" type="com.ibaixiong.entity.ErpBatchDetails" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date_time" property="createDateTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="invalid" property="invalid" jdbcType="TINYINT" />
+    <result column="batch_number" property="batchNumber" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <association column="batch_id" property="batch" select="com.ibaixiong.erp.dao.sysset.ErpBatchDao.selectByPrimaryKey"/>
+  	<association column="purchase_order_id" property="order" select="com.ibaixiong.erp.dao.purchase.ErpPurchaseOrderDao.selectByPrimaryKey"/>
+  </resultMap>
+  <resultMap id="BaseInfoResultMap" type="com.ibaixiong.entity.ErpBatchDetails" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date_time" property="createDateTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="batch_number" property="batchNumber" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_date_time, update_time, status, invalid,batch_id,batch_number,purchase_order_id,description 
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_erp_batch_details
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+   <select id="selectBaseInfoByPrimaryKey" resultMap="BaseInfoResultMap" parameterType="java.lang.Long" >
+    select 
+     id, create_date_time, update_time,batch_number,description 
+    from tbl_erp_batch_details
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="getListByBatchId" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_erp_batch_details where batch_id = #{batchId,jdbcType=BIGINT} 
+    <if test="invalid != null" >
+    	AND invalid =  #{invalid} 
+    </if>
+  </select>
+  <select id="getByOrderId" resultMap="BaseResultMap" parameterType="java.lang.Long"  >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_erp_batch_details where purchase_order_id = #{id,jdbcType=BIGINT} AND invalid = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_erp_batch_details
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+ <update id="deleteByOrderId" parameterType="java.lang.Long" >
+    update tbl_erp_batch_details set invalid = 1
+    where purchase_order_id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateInvalid" >
+    update tbl_erp_batch_details set invalid = #{invalid,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <insert id="insertSelective" parameterType="com.ibaixiong.entity.ErpBatchDetails" useGeneratedKeys="true" keyProperty="id">
+    insert into tbl_erp_batch_details
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="createDateTime != null" >
+        create_date_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="invalid != null" >
+        invalid,
+      </if>
+      <if test="batch != null" >
+        batch_id,
+      </if>
+      <if test="batchNumber != null" >
+        batch_number,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="order != null" >
+        purchase_order_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="createDateTime != null" >
+        #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="batch != null" >
+        #{batch.id,jdbcType=BIGINT},
+      </if>
+      <if test="batchNumber != null" >
+        #{batchNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="order != null" >
+         #{order.id,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ibaixiong.entity.ErpBatchDetails" >
+    update tbl_erp_batch_details
+    <set >
+      <if test="createDateTime != null" >
+        create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        invalid = #{invalid,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

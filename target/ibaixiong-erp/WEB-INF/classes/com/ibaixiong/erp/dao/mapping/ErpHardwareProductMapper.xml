@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ibaixiong.erp.dao.oem.ErpHardwareProductDao">
+	<resultMap id="BaseResultMap" type="com.ibaixiong.entity.ErpHardwareProduct">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="create_date_time" property="createDateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+		<result column="invalid" property="invalid" jdbcType="TINYINT" />
+		<result column="category_id" property="categoryId" jdbcType="BIGINT" />
+		<result column="category_code" property="categoryCode"
+			jdbcType="CHAR" />
+		<result column="category_model_id" property="categoryModelId"
+			jdbcType="BIGINT" />
+		<result column="category_model_code" property="categoryModelCode"
+			jdbcType="CHAR" />
+		<result column="category_model_format_id" property="categoryModelFormatId"
+			jdbcType="BIGINT" />
+		<result column="category_model_format_code" property="categoryModelFormatCode"
+			jdbcType="CHAR" />
+		<result column="is_smart" property="isSmart" jdbcType="TINYINT" />
+		<result column="oem_info_id" property="oemInfoId" jdbcType="BIGINT" />
+		<result column="oem_code" property="oemCode" jdbcType="CHAR" />
+		<result column="oem_info_name" property="oemInfoName" jdbcType="VARCHAR" />
+		<result column="batch" property="batch" jdbcType="CHAR" />
+		<result column="admin_id" property="adminId" jdbcType="BIGINT" />
+		<result column="product_code" property="productCode" jdbcType="CHAR" />
+		<result column="mac_address" property="macAddress" jdbcType="CHAR" />
+		<result column="code" property="code" jdbcType="CHAR" />
+		<result column="unique_code" property="uniqueCode" jdbcType="CHAR" />
+		<result column="mfg_date_time" property="mfgDateTime" jdbcType="TIMESTAMP" />
+		<result column="is_custom_made" property="isCustomMade" jdbcType="TINYINT" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, create_date_time, update_time, status, invalid,
+		category_id,
+		category_code, category_model_id,
+		category_model_code,
+		category_model_format_id, category_model_format_code, is_smart,
+		oem_info_id, oem_code, oem_info_name,admin_id, batch, product_code,
+		mac_address, code, unique_code,
+		mfg_date_time,is_custom_made
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_erp_hardware_product
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="getErpHardwareProductByMacNumber" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_erp_hardware_product
+		where mac_address =
+		#{macNumber,jdbcType=CHAR}
+	</select>
+	<select id="getErpHardwareProductByUniqueCode" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_erp_hardware_product
+		where unique_code =
+		#{uniqueCode,jdbcType=CHAR}
+	</select>
+	<select id="getErpHardwareProductByAdminId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_erp_hardware_product
+		where admin_id = #{adminId,jdbcType=CHAR}
+		<if test="startDate != null and startDate!=''">
+			and create_date_time &gt;= #{startDate,jdbcType=VARCHAR}
+		</if>
+		<if test="endDate != null and endDate!=''">
+			and create_date_time &lt;= #{endDate,jdbcType=VARCHAR}
+		</if>
+		order by id desc
+	</select>
+	<select id="queryListByFormatId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_erp_hardware_product
+		where status=#{status}
+		<if test="formatId != null">
+			and category_model_format_id=#{formatId}
+		</if>
+		order by id desc
+	</select>
+	<!-- 根据运输码查询硬件信息 start -->
+	<select id="queryErpHardwareProductByTransportId" resultMap="BaseResultMap">
+		SELECT
+		hp.id,
+		hp.category_model_format_code,
+		hp.unique_code
+
+		FROM
+		tbl_erp_hardware_product AS hp
+		LEFT JOIN
+		tbl_erp_hardware_transport_relation AS htr ON hp.id =
+		htr.hardware_product_id
+		WHERE
+		htr.transport_code_id =
+		#{transportCodeId,jdbcType=BIGINT}
+		AND hp.invalid =
+		#{invalid,jdbcType=TINYINT}
+		AND htr.invalid =
+		#{invalid,jdbcType=TINYINT};
+	</select>
+	<!-- 根据运输码查询硬件信息 end -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		tbl_erp_hardware_product
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.ibaixiong.entity.ErpHardwareProduct"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into
+		tbl_erp_hardware_product (id, create_date_time,
+		update_time,
+		status,
+		invalid, category_id,
+		category_code, category_model_id,
+		category_model_code,
+		category_model_format_id,
+		category_model_format_code,
+		is_smart, oem_info_id, oem_code,
+		oem_info_name, batch,admin_id, product_code,
+		mac_address, code,
+		unique_code,
+		mfg_date_time,is_custom_made)
+		values (#{id,jdbcType=BIGINT},
+		#{createDateTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP},
+		#{status,jdbcType=TINYINT},
+		#{invalid,jdbcType=TINYINT}, #{categoryId,jdbcType=BIGINT},
+		#{categoryCode,jdbcType=CHAR}, #{categoryModelId,jdbcType=BIGINT},
+		#{categoryModelCode,jdbcType=CHAR},
+		#{categoryModelFormatId,jdbcType=BIGINT},
+		#{categoryModelFormatCode,jdbcType=CHAR},
+		#{isSmart,jdbcType=TINYINT},
+		#{oemInfoId,jdbcType=BIGINT}, #{oemCode,jdbcType=CHAR},
+		#{oemInfoName,jdbcType=VARCHAR},
+		#{batch,jdbcType=CHAR},
+		#{adminId,jdbcType=BIGINT},#{productCode,jdbcType=CHAR},
+		#{macAddress,jdbcType=CHAR}, #{code,jdbcType=CHAR},
+		#{uniqueCode,jdbcType=CHAR},
+		#{mfgDateTime,jdbcType=TIMESTAMP},
+		#{isCustomMade,jdbcType=TINYINT})
+	</insert>
+	<insert id="insertSelective" parameterType="com.ibaixiong.entity.ErpHardwareProduct">
+		insert into tbl_erp_hardware_product
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="createDateTime != null">
+				create_date_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="invalid != null">
+				invalid,
+			</if>
+			<if test="categoryId != null">
+				category_id,
+			</if>
+			<if test="categoryCode != null">
+				category_code,
+			</if>
+			<if test="categoryModelId != null">
+				category_model_id,
+			</if>
+			<if test="categoryModelCode != null">
+				category_model_code,
+			</if>
+			<if test="categoryModelFormatId != null">
+				category_model_format_id,
+			</if>
+			<if test="categoryModelFormatCode != null">
+				category_model_format_code,
+			</if>
+			<if test="isSmart != null">
+				is_smart,
+			</if>
+			<if test="oemInfoId != null">
+				oem_info_id,
+			</if>
+			<if test="oemCode != null">
+				oem_code,
+			</if>
+			<if test="oemInfoName != null">
+				oem_info_name,
+			</if>
+			<if test="adminId != null">
+				admin_id,
+			</if>
+			<if test="batch != null">
+				batch,
+			</if>
+			<if test="productCode != null">
+				product_code,
+			</if>
+			<if test="macAddress != null">
+				mac_address,
+			</if>
+			<if test="code != null">
+				code,
+			</if>
+			<if test="uniqueCode != null">
+				unique_code,
+			</if>
+			<if test="mfgDateTime != null">
+				mfg_date_time,
+			</if>
+			<if test="isCustomMade != null">
+				is_custom_made,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="createDateTime != null">
+				#{createDateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=TINYINT},
+			</if>
+			<if test="invalid != null">
+				#{invalid,jdbcType=TINYINT},
+			</if>
+			<if test="categoryId != null">
+				#{categoryId,jdbcType=BIGINT},
+			</if>
+			<if test="categoryCode != null">
+				#{categoryCode,jdbcType=CHAR},
+			</if>
+			<if test="categoryModelId != null">
+				#{categoryModelId,jdbcType=BIGINT},
+			</if>
+			<if test="categoryModelCode != null">
+				#{categoryModelCode,jdbcType=CHAR},
+			</if>
+			<if test="categoryModelFormatId != null">
+				#{categoryModelFormatId,jdbcType=BIGINT},
+			</if>
+			<if test="categoryModelFormatCode != null">
+				#{categoryModelFormatCode,jdbcType=CHAR},
+			</if>
+			<if test="isSmart != null">
+				#{isSmart,jdbcType=TINYINT},
+			</if>
+			<if test="oemInfoId != null">
+				#{oemInfoId,jdbcType=BIGINT},
+			</if>
+			<if test="oemCode != null">
+				#{oemCode,jdbcType=CHAR},
+			</if>
+			<if test="oemInfoName != null">
+				#{oemInfoName,jdbcType=VARCHAR},
+			</if>
+			<if test="adminId != null">
+				#{adminId,jdbcType=BIGINT},
+			</if>
+			<if test="batch != null">
+				#{batch,jdbcType=CHAR},
+			</if>
+			<if test="productCode != null">
+				#{productCode,jdbcType=CHAR},
+			</if>
+			<if test="macAddress != null">
+				#{macAddress,jdbcType=CHAR},
+			</if>
+			<if test="code != null">
+				#{code,jdbcType=CHAR},
+			</if>
+			<if test="uniqueCode != null">
+				#{uniqueCode,jdbcType=CHAR},
+			</if>
+			<if test="mfgDateTime != null">
+				#{mfgDateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isCustomMade != null">
+				#{isCustomMade,jdbcType=TINYINT},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.ibaixiong.entity.ErpHardwareProduct">
+		update tbl_erp_hardware_product
+		<set>
+			<if test="createDateTime != null">
+				create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=TINYINT},
+			</if>
+			<if test="invalid != null">
+				invalid = #{invalid,jdbcType=TINYINT},
+			</if>
+			<if test="categoryId != null">
+				category_id = #{categoryId,jdbcType=BIGINT},
+			</if>
+			<if test="categoryCode != null">
+				category_code = #{categoryCode,jdbcType=CHAR},
+			</if>
+			<if test="categoryModelId != null">
+				category_model_id = #{categoryModelId,jdbcType=BIGINT},
+			</if>
+			<if test="categoryModelCode != null">
+				category_model_code = #{categoryModelCode,jdbcType=CHAR},
+			</if>
+			<if test="categoryModelFormatId != null">
+				category_model_format_id =
+				#{categoryModelFormatId,jdbcType=BIGINT},
+			</if>
+			<if test="categoryModelFormatCode != null">
+				category_model_format_code =
+				#{categoryModelFormatCode,jdbcType=CHAR},
+			</if>
+			<if test="isSmart != null">
+				is_smart = #{isSmart,jdbcType=TINYINT},
+			</if>
+			<if test="oemInfoId != null">
+				oem_info_id = #{oemInfoId,jdbcType=BIGINT},
+			</if>
+			<if test="oemCode != null">
+				oem_code = #{oemCode,jdbcType=CHAR},
+			</if>
+			<if test="oemInfoName != null">
+				oem_info_name = #{oemInfoName,jdbcType=VARCHAR},
+			</if>
+			<if test="adminId != null">
+				admin_id = #{adminId,jdbcType=BIGINT},
+			</if>
+			<if test="batch != null">
+				batch = #{batch,jdbcType=CHAR},
+			</if>
+			<if test="productCode != null">
+				product_code = #{productCode,jdbcType=CHAR},
+			</if>
+			<if test="macAddress != null">
+				mac_address = #{macAddress,jdbcType=CHAR},
+			</if>
+			<if test="code != null">
+				code = #{code,jdbcType=CHAR},
+			</if>
+			<if test="uniqueCode != null">
+				unique_code = #{uniqueCode,jdbcType=CHAR},
+			</if>
+			<if test="mfgDateTime != null">
+				mfg_date_time = #{mfgDateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isCustomMade != null">
+				is_custom_made = #{isCustomMade,jdbcType=TINYINT}
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.ibaixiong.entity.ErpHardwareProduct">
+		update
+		tbl_erp_hardware_product
+		set create_date_time =
+		#{createDateTime,jdbcType=TIMESTAMP},
+		update_time =
+		#{updateTime,jdbcType=TIMESTAMP},
+		status = #{status,jdbcType=TINYINT},
+		invalid = #{invalid,jdbcType=TINYINT},
+		category_id =
+		#{categoryId,jdbcType=BIGINT},
+		category_code =
+		#{categoryCode,jdbcType=CHAR},
+		category_model_id =
+		#{categoryModelId,jdbcType=BIGINT},
+		category_model_code =
+		#{categoryModelCode,jdbcType=CHAR},
+		category_model_format_id =
+		#{categoryModelFormatId,jdbcType=BIGINT},
+		category_model_format_code =
+		#{categoryModelFormatCode,jdbcType=CHAR},
+		is_smart =
+		#{isSmart,jdbcType=TINYINT},
+		oem_info_id =
+		#{oemInfoId,jdbcType=BIGINT},
+		oem_code = #{oemCode,jdbcType=CHAR},
+		oem_info_name = #{oemInfoName,jdbcType=VARCHAR},
+		admin_id =
+		#{adminId,jdbcType=BIGINT},
+		batch = #{batch,jdbcType=CHAR},
+		product_code = #{productCode,jdbcType=CHAR},
+		mac_address =
+		#{macAddress,jdbcType=CHAR},
+		code = #{code,jdbcType=CHAR},
+		unique_code =
+		#{uniqueCode,jdbcType=CHAR},
+		mfg_date_time =
+		#{mfgDateTime,jdbcType=TIMESTAMP},
+		is_custom_made = #{isCustomMade,jdbcType=TINYINT}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

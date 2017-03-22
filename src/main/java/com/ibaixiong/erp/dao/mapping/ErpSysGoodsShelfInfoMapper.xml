@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ibaixiong.erp.dao.sysset.ErpSysGoodsShelfInfoDao" >
+  <resultMap id="BaseResultMap" type="com.ibaixiong.entity.ErpSysGoodsShelfInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date_time" property="createDateTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="invalid" property="invalid" jdbcType="TINYINT" />
+    <result column="goods_shelf_number" property="goodsShelfNumber" jdbcType="VARCHAR" />
+    <result column="category_id" property="categoryId" jdbcType="BIGINT" />
+    <result column="category_model_id" property="categoryModelId" jdbcType="BIGINT" />
+    <result column="category_model_format_id" property="categoryModelFormatId" jdbcType="BIGINT" />
+    <association column="parent_id" property="parent" select="com.ibaixiong.erp.dao.sysset.ErpSysGoodsShelfInfoDao.selectByPrimaryKey"/>
+    <association column="storage_id" property="storage" select="com.ibaixiong.erp.dao.storage.ErpSysStorageDao.selectByPrimaryKey"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_date_time, update_time, status, invalid, goods_shelf_number, category_id, 
+    category_model_id, category_model_format_id, parent_id, storage_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_erp_sys_goods_shelf_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="getListByParentId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_erp_sys_goods_shelf_info
+    where parent_id = #{pid,jdbcType=BIGINT} and storage_id= #{storageId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_erp_sys_goods_shelf_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insertSelective" parameterType="com.ibaixiong.entity.ErpSysGoodsShelfInfo" useGeneratedKeys="true" keyProperty="id">
+    insert into tbl_erp_sys_goods_shelf_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="createDateTime != null" >
+        create_date_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="invalid != null" >
+        invalid,
+      </if>
+      <if test="goodsShelfNumber != null" >
+        goods_shelf_number,
+      </if>
+      <if test="categoryId != null" >
+        category_id,
+      </if>
+      <if test="categoryModelId != null" >
+        category_model_id,
+      </if>
+      <if test="categoryModelFormatId != null" >
+        category_model_format_id,
+      </if>
+      <if test="parent != null" >
+        parent_id,
+      </if>
+      <if test="storage != null" >
+        storage_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="createDateTime != null" >
+        #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="goodsShelfNumber != null" >
+        #{goodsShelfNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null" >
+        #{categoryId,jdbcType=BIGINT},
+      </if>
+      <if test="categoryModelId != null" >
+        #{categoryModelId,jdbcType=BIGINT},
+      </if>
+      <if test="categoryModelFormatId != null" >
+        #{categoryModelFormatId,jdbcType=BIGINT},
+      </if>
+      <if test="parent != null" >
+        #{parent.id,jdbcType=BIGINT},
+      </if>
+      <if test="storage != null" >
+        #{storage.id,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ibaixiong.entity.ErpSysGoodsShelfInfo" >
+    update tbl_erp_sys_goods_shelf_info
+    <set >
+      <if test="createDateTime != null" >
+        create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        invalid = #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="goodsShelfNumber != null" >
+        goods_shelf_number = #{goodsShelfNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null" >
+        category_id = #{categoryId,jdbcType=BIGINT},
+      </if>
+      <if test="categoryModelId != null" >
+        category_model_id = #{categoryModelId,jdbcType=BIGINT},
+      </if>
+      <if test="categoryModelFormatId != null" >
+        category_model_format_id = #{categoryModelFormatId,jdbcType=BIGINT},
+      </if>
+      <if test="parent != null" >
+        parent_id = #{parent.id,jdbcType=BIGINT},
+      </if>
+      <if test="storage != null" >
+        storage_id = #{storage.id,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ibaixiong.entity.ErpSysGoodsShelfInfo" >
+    update tbl_erp_sys_goods_shelf_info
+    set create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      invalid = #{invalid,jdbcType=TINYINT},
+      goods_shelf_number = #{goodsShelfNumber,jdbcType=VARCHAR},
+      product_number = #{productNumber,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      product_standard = #{productStandard,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=BIGINT},
+      storage_id = #{storageId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

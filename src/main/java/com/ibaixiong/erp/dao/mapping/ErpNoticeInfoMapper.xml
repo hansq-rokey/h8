@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ibaixiong.erp.dao.notice.ErpNoticeInfoDao">
+	<resultMap id="BaseResultMap" type="com.ibaixiong.entity.ErpNoticeInfo">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="create_date_time" property="createDateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+		<result column="invalid" property="invalid" jdbcType="TINYINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="admin_id" property="adminId" jdbcType="BIGINT" />
+		<association column="category_id" property="erpNoticeCategory" select="com.ibaixiong.erp.dao.notice.ErpNoticeCategoryDao.selectByPrimaryKey"/>
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="com.ibaixiong.entity.ErpNoticeInfo"
+		extends="BaseResultMap">
+		<result column="description" property="description" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, create_date_time, update_time, status, invalid, name, category_id,
+		admin_id
+	</sql>
+	<sql id="Blob_Column_List">
+		description
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from tbl_erp_notice_info
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="selectAll" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_erp_notice_info where invalid = 0 
+		order by id desc
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from tbl_erp_notice_info
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.ibaixiong.entity.ErpNoticeInfo">
+		insert into tbl_erp_notice_info (id, create_date_time, update_time,
+		status, invalid, name,
+		category_id, admin_id, description
+		)
+		values (#{id,jdbcType=BIGINT}, #{createDateTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP},
+		#{status,jdbcType=TINYINT}, #{invalid,jdbcType=TINYINT}, #{name,jdbcType=VARCHAR},
+		#{categoryId,jdbcType=BIGINT}, #{adminId,jdbcType=BIGINT},
+		#{description,jdbcType=LONGVARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.ibaixiong.entity.ErpNoticeInfo" useGeneratedKeys="true" keyProperty="id">
+		insert into tbl_erp_notice_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="createDateTime != null">
+				create_date_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="invalid != null">
+				invalid,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="erpNoticeCategory != null">
+				category_id,
+			</if>
+			<if test="adminId != null">
+				admin_id,
+			</if>
+			<if test="description != null">
+				description,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="createDateTime != null">
+				#{createDateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=TINYINT},
+			</if>
+			<if test="invalid != null">
+				#{invalid,jdbcType=TINYINT},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="erpNoticeCategory != null">
+				#{erpNoticeCategory.id,jdbcType=BIGINT},
+			</if>
+			<if test="adminId != null">
+				#{adminId,jdbcType=BIGINT},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.ibaixiong.entity.ErpNoticeInfo">
+		update tbl_erp_notice_info
+		<set>
+			<if test="createDateTime != null">
+				create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=TINYINT},
+			</if>
+			<if test="invalid != null">
+				invalid = #{invalid,jdbcType=TINYINT},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="categoryId != null">
+				category_id = #{categoryId,jdbcType=BIGINT},
+			</if>
+			<if test="adminId != null">
+				admin_id = #{adminId,jdbcType=BIGINT},
+			</if>
+			<if test="description != null">
+				description = #{description,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ibaixiong.entity.ErpNoticeInfo">
+		update tbl_erp_notice_info
+		set create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP},
+		status = #{status,jdbcType=TINYINT},
+		invalid = #{invalid,jdbcType=TINYINT},
+		name = #{name,jdbcType=VARCHAR},
+		category_id = #{categoryId,jdbcType=BIGINT},
+		admin_id = #{adminId,jdbcType=BIGINT},
+		description = #{description,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.ibaixiong.entity.ErpNoticeInfo">
+		update tbl_erp_notice_info
+		set create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP},
+		status = #{status,jdbcType=TINYINT},
+		invalid = #{invalid,jdbcType=TINYINT},
+		name = #{name,jdbcType=VARCHAR},
+		category_id = #{categoryId,jdbcType=BIGINT},
+		admin_id = #{adminId,jdbcType=BIGINT}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

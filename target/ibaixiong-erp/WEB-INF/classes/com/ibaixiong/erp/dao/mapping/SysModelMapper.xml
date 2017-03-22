@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ibaixiong.erp.dao.sys.SysModelDao">
+	<resultMap id="BaseResultMap" type="com.ibaixiong.entity.SysModel">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="order" property="order" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="url" property="url" jdbcType="VARCHAR" />
+		<result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+		<result column="sys_tag" property="sysTag" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+		<result column="create_date_time" property="createDateTime" jdbcType="TIMESTAMP" />
+		<association column="pid" property="parentModel" select="com.ibaixiong.erp.dao.sys.SysModelDao.selectByPrimaryKey"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, pid, `order`, name, url, status, create_date_time,img_url,sys_tag
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_sys_model
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="getAllModelList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_sys_model
+		where status = 1
+	</select>
+	<select id="getModelListByIds" resultMap="BaseResultMap"
+		parameterType="java.util.List">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_sys_model
+		where id in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+  			#{item}
+  		</foreach>
+  		order by `order`
+	</select>
+	<select id="getModelsByPid" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_sys_model
+		where pid = #{id,jdbcType=BIGINT}
+		order by `order`
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		tbl_sys_model
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	
+	<insert id="insertSelective" parameterType="com.ibaixiong.entity.SysModel" useGeneratedKeys="true" keyProperty="id">
+		insert into tbl_sys_model
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="parentModel != null">
+				pid,
+			</if>
+			<if test="order != null">
+				`order`,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="url != null">
+				url,
+			</if>
+			<if test="imgUrl != null">
+				img_url,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="createDateTime != null">
+				create_date_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="parentModel != null">
+				#{parentModel.id,jdbcType=INTEGER},
+			</if>
+			<if test="order != null">
+				#{order,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="url != null">
+				#{url,jdbcType=VARCHAR},
+			</if>
+			<if test="imgUrl != null">
+				#{imgUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=TINYINT},
+			</if>
+			<if test="createDateTime != null">
+				#{createDateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.ibaixiong.entity.SysModel">
+		update tbl_sys_model
+		<set>
+			<if test="parentModel != null">
+				pid = #{parentModel.id,jdbcType=BIGINT},
+			</if>
+			<if test="order != null">
+				`order` = #{order,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="url != null">
+				url = #{url,jdbcType=VARCHAR},
+			</if>
+			<if test="imgUrl != null">
+				img_url = #{imgUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=TINYINT},
+			</if>
+			<if test="createDateTime != null">
+				create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

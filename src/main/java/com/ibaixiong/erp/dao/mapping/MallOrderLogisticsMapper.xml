@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ibaixiong.erp.dao.storage.MallOrderLogisticsDao" >
+  <resultMap id="BaseResultMap" type="com.ibaixiong.entity.MallOrderLogistics" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="express_company_id" property="expressCompanyId" jdbcType="BIGINT" />
+    <result column="express_name" property="expressName" jdbcType="VARCHAR" />
+    <result column="express_no" property="expressNo" jdbcType="VARCHAR" />
+    <result column="express_money" property="expressMoney" jdbcType="REAL" />
+    <result column="deliver_time" property="deliverTime" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="estimated_time_arrival" property="estimatedTimeArrival" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="invalid" property="invalid" jdbcType="TINYINT" />
+    <result column="create_date_time" property="createDateTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="logistic_id" property="logisticId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, express_company_id, express_name, express_no, express_money, deliver_time, order_id, 
+    user_id, estimated_time_arrival, status, invalid, create_date_time, update_time, 
+    order_number, logistic_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_mall_order_logistics
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="getByLogisticsId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_mall_order_logistics
+    where logistic_id = #{logisticId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_mall_order_logistics
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ibaixiong.entity.MallOrderLogistics" >
+    insert into tbl_mall_order_logistics (id, express_company_id, express_name, 
+      express_no, express_money, deliver_time, 
+      order_id, user_id, estimated_time_arrival, 
+      status, invalid, create_date_time, 
+      update_time, order_number, logistic_id
+      )
+    values (#{id,jdbcType=BIGINT}, #{expressCompanyId,jdbcType=BIGINT}, #{expressName,jdbcType=VARCHAR}, 
+      #{expressNo,jdbcType=VARCHAR}, #{expressMoney,jdbcType=REAL}, #{deliverTime,jdbcType=VARCHAR}, 
+      #{orderId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{estimatedTimeArrival,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=TINYINT}, #{invalid,jdbcType=TINYINT}, #{createDateTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{orderNumber,jdbcType=VARCHAR}, #{logisticId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ibaixiong.entity.MallOrderLogistics" useGeneratedKeys="true" keyProperty="id">
+    insert into tbl_mall_order_logistics
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="expressCompanyId != null" >
+        express_company_id,
+      </if>
+      <if test="expressName != null" >
+        express_name,
+      </if>
+      <if test="expressNo != null" >
+        express_no,
+      </if>
+      <if test="expressMoney != null" >
+        express_money,
+      </if>
+      <if test="deliverTime != null" >
+        deliver_time,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="estimatedTimeArrival != null" >
+        estimated_time_arrival,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="invalid != null" >
+        invalid,
+      </if>
+      <if test="createDateTime != null" >
+        create_date_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+      <if test="logisticId != null" >
+        logistic_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="expressCompanyId != null" >
+        #{expressCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="expressName != null" >
+        #{expressName,jdbcType=VARCHAR},
+      </if>
+      <if test="expressNo != null" >
+        #{expressNo,jdbcType=VARCHAR},
+      </if>
+      <if test="expressMoney != null" >
+        #{expressMoney,jdbcType=REAL},
+      </if>
+      <if test="deliverTime != null" >
+        #{deliverTime,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="estimatedTimeArrival != null" >
+        #{estimatedTimeArrival,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="createDateTime != null" >
+        #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticId != null" >
+        #{logisticId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ibaixiong.entity.MallOrderLogistics" >
+    update tbl_mall_order_logistics
+    <set >
+      <if test="expressCompanyId != null" >
+        express_company_id = #{expressCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="expressName != null" >
+        express_name = #{expressName,jdbcType=VARCHAR},
+      </if>
+      <if test="expressNo != null" >
+        express_no = #{expressNo,jdbcType=VARCHAR},
+      </if>
+      <if test="expressMoney != null" >
+        express_money = #{expressMoney,jdbcType=REAL},
+      </if>
+      <if test="deliverTime != null" >
+        deliver_time = #{deliverTime,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="estimatedTimeArrival != null" >
+        estimated_time_arrival = #{estimatedTimeArrival,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        invalid = #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="createDateTime != null" >
+        create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticId != null" >
+        logistic_id = #{logisticId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ibaixiong.entity.MallOrderLogistics" >
+    update tbl_mall_order_logistics
+    set express_company_id = #{expressCompanyId,jdbcType=BIGINT},
+      express_name = #{expressName,jdbcType=VARCHAR},
+      express_no = #{expressNo,jdbcType=VARCHAR},
+      express_money = #{expressMoney,jdbcType=REAL},
+      deliver_time = #{deliverTime,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      estimated_time_arrival = #{estimatedTimeArrival,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      invalid = #{invalid,jdbcType=TINYINT},
+      create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      order_number = #{orderNumber,jdbcType=VARCHAR},
+      logistic_id = #{logisticId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateExpressNoByOrderNumber">
+    update tbl_mall_order_logistics
+    set express_no = #{expressNo}
+      where order_number = #{orderNumber}
+  </update>
+</mapper>

@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ibaixiong.erp.dao.storage.ErpOutStorageDao" >
+    <resultMap id="BaseResultMap" type="com.ibaixiong.entity.ErpOutStorage" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date_time" property="createDateTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="invalid" property="invalid" jdbcType="TINYINT" />
+    <result column="hardware_product_id" property="hardwareProductId" jdbcType="BIGINT" />
+    <result column="order_id" property="orderId" jdbcType="BIGINT" />
+    <result column="admin_id" property="adminId" jdbcType="BIGINT" />
+    <result column="logistics_company_id" property="logisticsCompanyId" jdbcType="BIGINT" />
+    <result column="waybill_number" property="waybillNumber" jdbcType="VARCHAR" />
+    <result column="buy_id" property="buyId" jdbcType="BIGINT" />
+    <result column="buy_address" property="buyAddress" jdbcType="VARCHAR" />
+    <result column="buy_nickname" property="buyNickname" jdbcType="VARCHAR" />
+    <result column="linkman" property="linkman" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+  </resultMap>
+    <sql id="Base_Column_List" >
+    id, create_date_time, update_time, status, invalid, hardware_product_id, order_id, 
+    admin_id, logistics_company_id, waybill_number, buy_id, buy_address, buy_nickname, 
+    linkman, phone, order_number
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_erp_out_storage
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <!-- 出库列表查询 start -->
+  <resultMap id="QueryOutStorageListResultMap" type="com.ibaixiong.entity.ErpOutStorage" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date_time" property="createDateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="hardware_product_id" property="hardwareProductId" jdbcType="BIGINT" />
+    <result column="order_id" property="orderId" jdbcType="BIGINT" />
+    <result column="admin_id" property="adminId" jdbcType="BIGINT" />
+    <result column="waybill_number" property="waybillNumber" jdbcType="VARCHAR" />
+    <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="format_name" property="formatName" jdbcType="VARCHAR" />
+    <result column="unique_code" property="uniqueCode" jdbcType="VARCHAR" />
+    <association property="admin" column="admin_id" select="com.ibaixiong.erp.dao.sys.SysAdminDao.selectByPrimaryKey"/>
+  </resultMap>
+  <select id="queryOutStorageList" resultMap="QueryOutStorageListResultMap">
+ 	SELECT
+		os.id,
+		hp.unique_code,
+		bcm.`name`as product_name,
+		cmf.`name` as format_name,
+		os.order_number,
+		os.create_date_time,
+		os.admin_id,
+		os.hardware_product_id
+	FROM
+		tbl_erp_out_storage os
+	LEFT JOIN tbl_erp_hardware_product hp ON os.hardware_product_id = hp.id
+	LEFT JOIN tbl_mall_basic_category_model bcm ON hp.category_model_id=bcm.id
+	LEFT JOIN tbl_mall_basic_category_model_format cmf ON hp.category_model_format_id=cmf.id
+	
+	<where>
+		<if test="invalid!=null">
+    		os.invalid = #{invalid,jdbcType=TINYINT}
+    	</if>
+    	<if test="adminId!=null">
+    		os.admin_id = #{adminId,jdbcType=BIGINT}
+    	</if>
+    	<if test="keywords!=null">
+    		and hp.unique_code like concat('%', #{keywords}, '%')
+    	</if>
+    	<if test="startTime!=null and endTime!=null">
+    		and os.create_date_time &gt; #{startTime,jdbcType=TIMESTAMP} and  os.create_date_time  &lt; #{endTime,jdbcType=TIMESTAMP}
+    	</if>
+	</where>
+	order by os.create_date_time desc
+  </select>
+  <!-- end -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_erp_out_storage
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ibaixiong.entity.ErpOutStorage" >
+    insert into tbl_erp_out_storage (id, create_date_time, update_time, 
+      status, invalid, hardware_product_id, 
+      order_id, admin_id, logistics_company_id, 
+      waybill_number, buy_id, buy_address, 
+      buy_nickname, linkman, phone, 
+      order_number)
+    values (#{id,jdbcType=BIGINT}, #{createDateTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=TINYINT}, #{invalid,jdbcType=TINYINT}, #{hardwareProductId,jdbcType=BIGINT}, 
+      #{orderId,jdbcType=BIGINT}, #{adminId,jdbcType=BIGINT}, #{logisticsCompanyId,jdbcType=BIGINT}, 
+      #{waybillNumber,jdbcType=VARCHAR}, #{buyId,jdbcType=BIGINT}, #{buyAddress,jdbcType=VARCHAR}, 
+      #{buyNickname,jdbcType=VARCHAR}, #{linkman,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{orderNumber,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ibaixiong.entity.ErpOutStorage" useGeneratedKeys="true" keyProperty="id">
+    insert into tbl_erp_out_storage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="createDateTime != null" >
+        create_date_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="invalid != null" >
+        invalid,
+      </if>
+      <if test="hardwareProductId != null" >
+        hardware_product_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="logisticsCompanyId != null" >
+        logistics_company_id,
+      </if>
+      <if test="waybillNumber != null" >
+        waybill_number,
+      </if>
+      <if test="buyId != null" >
+        buy_id,
+      </if>
+      <if test="buyAddress != null" >
+        buy_address,
+      </if>
+      <if test="buyNickname != null" >
+        buy_nickname,
+      </if>
+      <if test="linkman != null" >
+        linkman,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="createDateTime != null" >
+        #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="hardwareProductId != null" >
+        #{hardwareProductId,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=BIGINT},
+      </if>
+      <if test="logisticsCompanyId != null" >
+        #{logisticsCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="waybillNumber != null" >
+        #{waybillNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="buyId != null" >
+        #{buyId,jdbcType=BIGINT},
+      </if>
+      <if test="buyAddress != null" >
+        #{buyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="buyNickname != null" >
+        #{buyNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ibaixiong.entity.ErpOutStorage" >
+    update tbl_erp_out_storage
+    <set >
+      <if test="createDateTime != null" >
+        create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        invalid = #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="hardwareProductId != null" >
+        hardware_product_id = #{hardwareProductId,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="adminId != null" >
+        admin_id = #{adminId,jdbcType=BIGINT},
+      </if>
+      <if test="logisticsCompanyId != null" >
+        logistics_company_id = #{logisticsCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="waybillNumber != null" >
+        waybill_number = #{waybillNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="buyId != null" >
+        buy_id = #{buyId,jdbcType=BIGINT},
+      </if>
+      <if test="buyAddress != null" >
+        buy_address = #{buyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="buyNickname != null" >
+        buy_nickname = #{buyNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        linkman = #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ibaixiong.entity.ErpOutStorage" >
+    update tbl_erp_out_storage
+    set create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      invalid = #{invalid,jdbcType=TINYINT},
+      hardware_product_id = #{hardwareProductId,jdbcType=BIGINT},
+      order_id = #{orderId,jdbcType=BIGINT},
+      admin_id = #{adminId,jdbcType=BIGINT},
+      logistics_company_id = #{logisticsCompanyId,jdbcType=BIGINT},
+      waybill_number = #{waybillNumber,jdbcType=VARCHAR},
+      buy_id = #{buyId,jdbcType=BIGINT},
+      buy_address = #{buyAddress,jdbcType=VARCHAR},
+      buy_nickname = #{buyNickname,jdbcType=VARCHAR},
+      linkman = #{linkman,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      order_number = #{orderNumber,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateWaybillNumberByOrderId"  >
+    update tbl_erp_out_storage set waybill_number = #{waybillNumber} where order_number = #{orderNumber}
+  </update>
+</mapper>

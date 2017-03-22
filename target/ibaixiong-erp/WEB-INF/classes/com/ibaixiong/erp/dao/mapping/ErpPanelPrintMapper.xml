@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ibaixiong.erp.dao.custom.ErpPanelPrintDao">
+	<resultMap id="BaseResultMap" type="com.ibaixiong.entity.ErpPanelPrint">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="order_number" property="orderNumber" jdbcType="CHAR" />
+		<result column="product_name" property="productName" jdbcType="VARCHAR" />
+		<result column="product_format" property="productFormat" jdbcType="VARCHAR" />
+		<result column="product_id" property="productId" jdbcType="BIGINT" />
+		<result column="product_format_id" property="productFormatId" jdbcType="BIGINT" />
+		<result column="product_length" property="productLength" jdbcType="INTEGER" />
+		<result column="product_width" property="productWidth" jdbcType="INTEGER" />
+		<result column="num" property="num" jdbcType="INTEGER" />
+		<result column="send_time" property="sendTime" jdbcType="DATE" />
+		<result column="real_send_time" property="realSendTime" jdbcType="TIMESTAMP" />
+		<result column="create_date_time" property="createDateTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="invalid" property="invalid" jdbcType="TINYINT" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+		<result column="logistics_company" property="logisticsCompany" jdbcType="VARCHAR" />
+		<result column="bill_no" property="billNo" jdbcType="CHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, order_number, product_name, product_format, product_id, product_format_id, product_length,
+		product_width, num, send_time, real_send_time, create_date_time, update_time, invalid,
+		status, logistics_company, bill_no
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_erp_panel_print
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<select id="queryPanelPrintByStatus" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_erp_panel_print
+		<where>
+			<if test="status!=null">
+				status = #{status,jdbcType=TINYINT}
+			</if>
+		</where>
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from tbl_erp_panel_print
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.ibaixiong.entity.ErpPanelPrint">
+		insert into tbl_erp_panel_print (id, order_number, product_name,
+		product_format, product_id, product_format_id,
+		product_length, product_width, num,
+		send_time, real_send_time, create_date_time,
+		update_time, invalid, status,
+		logistics_company, bill_no)
+		values (#{id,jdbcType=BIGINT}, #{orderNumber,jdbcType=CHAR}, #{productName,jdbcType=VARCHAR},
+		#{productFormat,jdbcType=VARCHAR}, #{productId,jdbcType=BIGINT}, #{productFormatId,jdbcType=BIGINT},
+		#{productLength,jdbcType=INTEGER}, #{productWidth,jdbcType=INTEGER}, #{num,jdbcType=INTEGER},
+		#{sendTime,jdbcType=DATE}, #{realSendTime,jdbcType=TIMESTAMP}, #{createDateTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP}, #{invalid,jdbcType=TINYINT}, #{status,jdbcType=TINYINT},
+		#{logisticsCompany,jdbcType=VARCHAR}, #{billNo,jdbcType=CHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.ibaixiong.entity.ErpPanelPrint">
+		insert into tbl_erp_panel_print
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="orderNumber != null">
+				order_number,
+			</if>
+			<if test="productName != null">
+				product_name,
+			</if>
+			<if test="productFormat != null">
+				product_format,
+			</if>
+			<if test="productId != null">
+				product_id,
+			</if>
+			<if test="productFormatId != null">
+				product_format_id,
+			</if>
+			<if test="productLength != null">
+				product_length,
+			</if>
+			<if test="productWidth != null">
+				product_width,
+			</if>
+			<if test="num != null">
+				num,
+			</if>
+			<if test="sendTime != null">
+				send_time,
+			</if>
+			<if test="realSendTime != null">
+				real_send_time,
+			</if>
+			<if test="createDateTime != null">
+				create_date_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="invalid != null">
+				invalid,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="logisticsCompany != null">
+				logistics_company,
+			</if>
+			<if test="billNo != null">
+				bill_no,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="orderNumber != null">
+				#{orderNumber,jdbcType=CHAR},
+			</if>
+			<if test="productName != null">
+				#{productName,jdbcType=VARCHAR},
+			</if>
+			<if test="productFormat != null">
+				#{productFormat,jdbcType=VARCHAR},
+			</if>
+			<if test="productId != null">
+				#{productId,jdbcType=BIGINT},
+			</if>
+			<if test="productFormatId != null">
+				#{productFormatId,jdbcType=BIGINT},
+			</if>
+			<if test="productLength != null">
+				#{productLength,jdbcType=INTEGER},
+			</if>
+			<if test="productWidth != null">
+				#{productWidth,jdbcType=INTEGER},
+			</if>
+			<if test="num != null">
+				#{num,jdbcType=INTEGER},
+			</if>
+			<if test="sendTime != null">
+				#{sendTime,jdbcType=DATE},
+			</if>
+			<if test="realSendTime != null">
+				#{realSendTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createDateTime != null">
+				#{createDateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="invalid != null">
+				#{invalid,jdbcType=TINYINT},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=TINYINT},
+			</if>
+			<if test="logisticsCompany != null">
+				#{logisticsCompany,jdbcType=VARCHAR},
+			</if>
+			<if test="billNo != null">
+				#{billNo,jdbcType=CHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.ibaixiong.entity.ErpPanelPrint">
+		update tbl_erp_panel_print
+		<set>
+			<if test="orderNumber != null">
+				order_number = #{orderNumber,jdbcType=CHAR},
+			</if>
+			<if test="productName != null">
+				product_name = #{productName,jdbcType=VARCHAR},
+			</if>
+			<if test="productFormat != null">
+				product_format = #{productFormat,jdbcType=VARCHAR},
+			</if>
+			<if test="productId != null">
+				product_id = #{productId,jdbcType=BIGINT},
+			</if>
+			<if test="productFormatId != null">
+				product_format_id = #{productFormatId,jdbcType=BIGINT},
+			</if>
+			<if test="productLength != null">
+				product_length = #{productLength,jdbcType=INTEGER},
+			</if>
+			<if test="productWidth != null">
+				product_width = #{productWidth,jdbcType=INTEGER},
+			</if>
+			<if test="num != null">
+				num = #{num,jdbcType=INTEGER},
+			</if>
+			<if test="sendTime != null">
+				send_time = #{sendTime,jdbcType=DATE},
+			</if>
+			<if test="realSendTime != null">
+				real_send_time = #{realSendTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createDateTime != null">
+				create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="invalid != null">
+				invalid = #{invalid,jdbcType=TINYINT},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=TINYINT},
+			</if>
+			<if test="logisticsCompany != null">
+				logistics_company = #{logisticsCompany,jdbcType=VARCHAR},
+			</if>
+			<if test="billNo != null">
+				bill_no = #{billNo,jdbcType=CHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<update id="update">
+		update tbl_erp_panel_print set
+		<if test="logisticsCompany != null">
+			logistics_company = #{logisticsCompany,jdbcType=VARCHAR},
+		</if>
+		<if test="billNo != null">
+			bill_no = #{billNo,jdbcType=CHAR},
+		</if>
+		status=1,real_send_time=NOW()
+		where id in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="com.ibaixiong.entity.ErpPanelPrint">
+		update tbl_erp_panel_print
+		set order_number = #{orderNumber,jdbcType=CHAR},
+		product_name = #{productName,jdbcType=VARCHAR},
+		product_format = #{productFormat,jdbcType=VARCHAR},
+		product_id = #{productId,jdbcType=BIGINT},
+		product_format_id = #{productFormatId,jdbcType=BIGINT},
+		product_length = #{productLength,jdbcType=INTEGER},
+		product_width = #{productWidth,jdbcType=INTEGER},
+		num = #{num,jdbcType=INTEGER},
+		send_time = #{sendTime,jdbcType=DATE},
+		real_send_time = #{realSendTime,jdbcType=TIMESTAMP},
+		create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP},
+		invalid = #{invalid,jdbcType=TINYINT},
+		status = #{status,jdbcType=TINYINT},
+		logistics_company = #{logisticsCompany,jdbcType=VARCHAR},
+		bill_no = #{billNo,jdbcType=CHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

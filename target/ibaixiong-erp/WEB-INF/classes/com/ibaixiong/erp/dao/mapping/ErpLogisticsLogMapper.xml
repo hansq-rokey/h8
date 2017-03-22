@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ibaixiong.erp.dao.storage.ErpLogisticsLogDao" >
+  <resultMap id="BaseResultMap" type="com.ibaixiong.entity.ErpLogisticsLog" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date_time" property="createDateTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="invalid" property="invalid" jdbcType="TINYINT" />
+    <result column="logistics_id" property="logisticsId" jdbcType="BIGINT" />
+    <result column="admin_id" property="adminId" jdbcType="BIGINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="request_type" property="requestType" jdbcType="TINYINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ibaixiong.entity.ErpLogisticsLog" extends="BaseResultMap" >
+    <result column="result" property="result" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_date_time, update_time, status, invalid, logistics_id, admin_id, remark, 
+    request_type
+  </sql>
+  <sql id="Blob_Column_List" >
+    result
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_erp_logistics_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_erp_logistics_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ibaixiong.entity.ErpLogisticsLog" >
+    insert into tbl_erp_logistics_log (id, create_date_time, update_time, 
+      status, invalid, logistics_id, 
+      admin_id, remark, request_type, 
+      result)
+    values (#{id,jdbcType=BIGINT}, #{createDateTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=TINYINT}, #{invalid,jdbcType=TINYINT}, #{logisticsId,jdbcType=BIGINT}, 
+      #{adminId,jdbcType=BIGINT}, #{remark,jdbcType=VARCHAR}, #{requestType,jdbcType=TINYINT}, 
+      #{result,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ibaixiong.entity.ErpLogisticsLog" useGeneratedKeys="true" keyProperty="id">
+    insert into tbl_erp_logistics_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="createDateTime != null" >
+        create_date_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="invalid != null" >
+        invalid,
+      </if>
+      <if test="logisticsId != null" >
+        logistics_id,
+      </if>
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="requestType != null" >
+        request_type,
+      </if>
+      <if test="result != null" >
+        result,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="createDateTime != null" >
+        #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="logisticsId != null" >
+        #{logisticsId,jdbcType=BIGINT},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="requestType != null" >
+        #{requestType,jdbcType=TINYINT},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ibaixiong.entity.ErpLogisticsLog" >
+    update tbl_erp_logistics_log
+    <set >
+      <if test="createDateTime != null" >
+        create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        invalid = #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="logisticsId != null" >
+        logistics_id = #{logisticsId,jdbcType=BIGINT},
+      </if>
+      <if test="adminId != null" >
+        admin_id = #{adminId,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="requestType != null" >
+        request_type = #{requestType,jdbcType=TINYINT},
+      </if>
+      <if test="result != null" >
+        result = #{result,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ibaixiong.entity.ErpLogisticsLog" >
+    update tbl_erp_logistics_log
+    set create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      invalid = #{invalid,jdbcType=TINYINT},
+      logistics_id = #{logisticsId,jdbcType=BIGINT},
+      admin_id = #{adminId,jdbcType=BIGINT},
+      remark = #{remark,jdbcType=VARCHAR},
+      request_type = #{requestType,jdbcType=TINYINT},
+      result = #{result,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ibaixiong.entity.ErpLogisticsLog" >
+    update tbl_erp_logistics_log
+    set create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      invalid = #{invalid,jdbcType=TINYINT},
+      logistics_id = #{logisticsId,jdbcType=BIGINT},
+      admin_id = #{adminId,jdbcType=BIGINT},
+      remark = #{remark,jdbcType=VARCHAR},
+      request_type = #{requestType,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

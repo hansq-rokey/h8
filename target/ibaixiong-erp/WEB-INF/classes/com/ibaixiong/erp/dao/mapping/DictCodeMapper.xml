@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ibaixiong.erp.dao.sys.DictCodeDao" >
+  <resultMap id="BaseResultMap" type="com.ibaixiong.entity.DictCode" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="dict_type" property="dictType" jdbcType="VARCHAR" />
+    <result column="dict_name" property="dictName" jdbcType="VARCHAR" />
+    <result column="dict_code_name" property="dictCodeName" jdbcType="VARCHAR" />
+    <result column="dict_code_value" property="dictCodeValue" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="create_date_time" property="createDateTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="admin_id" property="adminId" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="is_display" property="isDisplay" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, dict_type, dict_name, dict_code_name, dict_code_value, sort, create_date_time, 
+    update_time, admin_id, status, type,is_display
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_dict_code
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="queryDictCodeList" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_dict_code
+    <where>
+    	<if test="dictType!=null">
+    		dict_type = #{dictType,jdbcType=VARCHAR}
+    	</if>
+    	<if test="type!=null">
+    		and type = #{type,jdbcType=TINYINT}
+    	</if>
+    	<if test="isDisplay!=null">
+    		and is_display = #{isDisplay,jdbcType=TINYINT}
+    	</if>
+    </where>
+    order by sort
+  </select>
+</mapper>

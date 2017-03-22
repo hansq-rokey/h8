@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ibaixiong.erp.dao.storage.ErpExceptionProductDao" >
+  <resultMap id="BaseResultMap" type="com.ibaixiong.entity.ErpExceptionProduct" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date_time" property="createDateTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="invalid" property="invalid" jdbcType="TINYINT" />
+    <result column="hardware_product_id" property="hardwareProductId" jdbcType="BIGINT" />
+    <result column="admin_id" property="adminId" jdbcType="BIGINT" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="exception_type" property="exceptionType" jdbcType="BIGINT" />
+    <result column="transport_code" property="transportCode" jdbcType="VARCHAR" />
+    <result column="uniqe_code" property="uniqeCode" jdbcType="VARCHAR" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="product_format" property="productFormat" jdbcType="VARCHAR" />
+    <result column="oem_name" property="oemName" jdbcType="VARCHAR" />
+    <result column="batch" property="batch" jdbcType="CHAR" />
+    <result column="process_desc" property="processDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_date_time, update_time, status, invalid, hardware_product_id, admin_id, 
+    description, exception_type, transport_code, uniqe_code, product_name, product_format, 
+    oem_name, batch, process_desc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_erp_exception_product
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <!-- 异常列表查询 start -->
+    <resultMap id="QueryExcetionListBaseResultMap" type="com.ibaixiong.entity.ErpExceptionProduct" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date_time" property="createDateTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="invalid" property="invalid" jdbcType="TINYINT" />
+    <result column="hardware_product_id" property="hardwareProductId" jdbcType="BIGINT" />
+    <result column="admin_id" property="adminId" jdbcType="BIGINT" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="exception_type" property="exceptionType" jdbcType="BIGINT" />
+    <result column="transport_code" property="transportCode" jdbcType="VARCHAR" />
+    <result column="uniqe_code" property="uniqeCode" jdbcType="VARCHAR" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="product_format" property="productFormat" jdbcType="VARCHAR" />
+    <result column="oem_name" property="oemName" jdbcType="VARCHAR" />
+    <result column="batch" property="batch" jdbcType="CHAR" />
+    <result column="process_desc" property="processDesc" jdbcType="VARCHAR" />
+    <association property="admin" column="admin_id" select="com.ibaixiong.erp.dao.sys.SysAdminDao.selectByPrimaryKey"/>
+  </resultMap>
+  <select id="queryExcetionList" resultMap="QueryExcetionListBaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_erp_exception_product
+    <where>
+    	<if test="invalid!=null">
+    		invalid = #{invalid,jdbcType=TINYINT}
+    	</if>
+    	<if test="adminId!=null">
+    		and admin_id = #{adminId,jdbcType=BIGINT}
+    	</if>
+    	<if test="keywords!=null">
+    		and uniqe_code like concat('%', #{keywords}, '%')
+    	</if>
+    	<if test="startTime!=null and endTime!=null">
+    		and create_date_time &gt; #{startTime,jdbcType=TIMESTAMP} and  create_date_time  &lt; #{endTime,jdbcType=TIMESTAMP}
+    	</if>
+    	<if test="adminList!=null">
+    		and admin_id in 
+    		<foreach collection="adminList" item="item" index="index" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+    </where>
+    order by create_date_time desc
+  </select>
+  <!-- end  -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_erp_exception_product
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ibaixiong.entity.ErpExceptionProduct" >
+    insert into tbl_erp_exception_product (id, create_date_time, update_time, 
+      status, invalid, hardware_product_id, 
+      admin_id, description, exception_type, 
+      transport_code, uniqe_code, product_name, 
+      product_format, oem_name, batch, 
+      process_desc)
+    values (#{id,jdbcType=BIGINT}, #{createDateTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=TINYINT}, #{invalid,jdbcType=TINYINT}, #{hardwareProductId,jdbcType=BIGINT}, 
+      #{adminId,jdbcType=BIGINT}, #{description,jdbcType=VARCHAR}, #{exceptionType,jdbcType=BIGINT}, 
+      #{transportCode,jdbcType=VARCHAR}, #{uniqeCode,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, 
+      #{productFormat,jdbcType=VARCHAR}, #{oemName,jdbcType=VARCHAR}, #{batch,jdbcType=CHAR}, 
+      #{processDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ibaixiong.entity.ErpExceptionProduct" useGeneratedKeys="true" keyProperty="id">
+    insert into tbl_erp_exception_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="createDateTime != null" >
+        create_date_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="invalid != null" >
+        invalid,
+      </if>
+      <if test="hardwareProductId != null" >
+        hardware_product_id,
+      </if>
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="exceptionType != null" >
+        exception_type,
+      </if>
+      <if test="transportCode != null" >
+        transport_code,
+      </if>
+      <if test="uniqeCode != null" >
+        uniqe_code,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="productFormat != null" >
+        product_format,
+      </if>
+      <if test="oemName != null" >
+        oem_name,
+      </if>
+      <if test="batch != null" >
+        batch,
+      </if>
+      <if test="processDesc != null" >
+        process_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="createDateTime != null" >
+        #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="hardwareProductId != null" >
+        #{hardwareProductId,jdbcType=BIGINT},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=BIGINT},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionType != null" >
+        #{exceptionType,jdbcType=BIGINT},
+      </if>
+      <if test="transportCode != null" >
+        #{transportCode,jdbcType=VARCHAR},
+      </if>
+      <if test="uniqeCode != null" >
+        #{uniqeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productFormat != null" >
+        #{productFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="oemName != null" >
+        #{oemName,jdbcType=VARCHAR},
+      </if>
+      <if test="batch != null" >
+        #{batch,jdbcType=CHAR},
+      </if>
+      <if test="processDesc != null" >
+        #{processDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ibaixiong.entity.ErpExceptionProduct" >
+    update tbl_erp_exception_product
+    <set >
+      <if test="createDateTime != null" >
+        create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        invalid = #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="hardwareProductId != null" >
+        hardware_product_id = #{hardwareProductId,jdbcType=BIGINT},
+      </if>
+      <if test="adminId != null" >
+        admin_id = #{adminId,jdbcType=BIGINT},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionType != null" >
+        exception_type = #{exceptionType,jdbcType=BIGINT},
+      </if>
+      <if test="transportCode != null" >
+        transport_code = #{transportCode,jdbcType=VARCHAR},
+      </if>
+      <if test="uniqeCode != null" >
+        uniqe_code = #{uniqeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productFormat != null" >
+        product_format = #{productFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="oemName != null" >
+        oem_name = #{oemName,jdbcType=VARCHAR},
+      </if>
+      <if test="batch != null" >
+        batch = #{batch,jdbcType=CHAR},
+      </if>
+      <if test="processDesc != null" >
+        process_desc = #{processDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ibaixiong.entity.ErpExceptionProduct" >
+    update tbl_erp_exception_product
+    set create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      invalid = #{invalid,jdbcType=TINYINT},
+      hardware_product_id = #{hardwareProductId,jdbcType=BIGINT},
+      admin_id = #{adminId,jdbcType=BIGINT},
+      description = #{description,jdbcType=VARCHAR},
+      exception_type = #{exceptionType,jdbcType=BIGINT},
+      transport_code = #{transportCode,jdbcType=VARCHAR},
+      uniqe_code = #{uniqeCode,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      product_format = #{productFormat,jdbcType=VARCHAR},
+      oem_name = #{oemName,jdbcType=VARCHAR},
+      batch = #{batch,jdbcType=CHAR},
+      process_desc = #{processDesc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

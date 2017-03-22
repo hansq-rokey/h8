@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ibaixiong.erp.dao.sys.SysAdminRoleDao" >
+  <resultMap id="BaseResultMap" type="com.ibaixiong.entity.SysAdminRole" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <association column="admin_id" property="admin" select="com.ibaixiong.erp.dao.sys.SysAdminDao.selectByPrimaryKey"/>
+    <association column="role_id" property="role" select="com.ibaixiong.erp.dao.sys.SysRoleDao.selectByPrimaryKey"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, admin_id,role_id
+  </sql>
+  <select id="getSysAdminRoleByAdmin" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_sys_admin_role
+    where admin_id = #{adminId,jdbcType=BIGINT}
+  </select>
+  <select id="getSysAdminRoleByRoleId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_sys_admin_role
+    where role_id = #{roleId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteAdminRoleByAdmin" parameterType="java.lang.Long" >
+    delete from tbl_sys_admin_role
+    where admin_id = #{adminId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insertAdminRole" parameterType="com.ibaixiong.entity.SysAdminRole" useGeneratedKeys="true" keyProperty="id">
+    insert into tbl_sys_admin_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="admin != null" >
+        admin_id,
+      </if>
+      <if test="role != null" >
+        role_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="admin != null" >
+        #{admin.id,jdbcType=BIGINT},
+      </if>
+      <if test="role != null" >
+        #{role.id,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="getAdminCountByRoleId" resultType="java.lang.Integer" parameterType="java.lang.Long" >
+    select count(*) from tbl_sys_admin_role
+    	where role_id = #{roleId,jdbcType=BIGINT}
+  </select>
+</mapper>

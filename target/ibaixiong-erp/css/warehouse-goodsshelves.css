@@ -1,0 +1,87 @@
+table{
+	width: 100%;
+    border-collapse: collapse;
+}
+table tr td{
+	border:1px solid #dfdfdf;
+    height:39px;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+table thead{
+	background:#fafafa;
+    color:#999999;
+}
+tbody{
+    color:#666;
+}
+tbody tr td{
+    height:40px;
+}
+table tr td:first-child{
+	text-align: left;
+	padding-left: 15px;
+}
+.savelink,.cancellink,.hideinput{
+	display: none;
+}
+.content{
+	margin-top: 25px;
+}
+.warehouse-name{
+	float: left;
+	font-weight: bold;
+}
+.searchbtn{
+    width: 100px;
+    height:30px;
+    background:#ff6200;
+    color:#fff;
+    margin-left:15px;
+    float: right; 
+    margin-bottom: 20px;
+}
+table tr td.add{
+	background:#fafafa;
+    color:#999999;
+    text-align: center;
+}
+.layel{
+    width: 500px;
+    background: #fff;
+    padding:10px 30px;
+    z-index: 999;
+}
+.save{
+    width: 100px;
+    height:30px;
+    background: #ff6200;
+    color:#fff;
+    margin-top: 80px;
+}
+.bigclass{
+	margin-top: 100px;
+	margin-left: 70px;
+}
+input.text{
+	width: 200px;
+}
+.big{
+	margin-top: 30px;
+}
+.text{
+	display: inline-block;
+	width: 80px;
+	float:left;
+	line-height:30px;
+}
+.bigbox{
+	margin-top: 10px;;
+	margin-left: 40px;
+	height:40px;
+}
+.selectinput{
+	width:200px;
+	margin:0;
+}

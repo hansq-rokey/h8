@@ -1,0 +1,133 @@
+.productname,.specifications{
+	font-size: 20px;
+	margin-right: 35px;
+}
+.scan-number{
+	font-size: 20px;
+}
+.number{
+	font-size: 30px;
+	color: #ff6a00;
+}
+input.scan-record{
+	border: 1px solid #ff6a00;
+	color: #ff6a00;
+	background: white;
+	height: 30px;
+	padding-left: 15px;
+	padding-right: 15px;
+	position: absolute;
+	right: 130px;
+}
+input.transport-code{
+	position: absolute;
+	padding-left: 15px;
+	padding-right: 15px;
+	height: 30px;
+	background: #ff6a00;
+	color: white;
+	right: 0px;
+}
+.medium{
+	height: 50px;
+	float: left;
+	height: 65px;
+	width: 20%;
+	background: #fff;
+}
+.bigbox{
+	width: 100%;
+	margin-top: 20px;
+	color: #bcbbbb;
+}
+.smallbox{
+	float: left;
+	position: relative;
+	background: #fff;
+	z-index: 99;
+	width:100%;
+	padding-left:50px;
+}
+.box{
+	float: right;
+	border: 1px solid #bcbbbb;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-top: 15px;
+	margin-right: 15px;
+	height: 50px;
+	width: 100%;
+	text-align: center;
+	background: #fff;
+}
+.medium:hover .code{
+	color: #ff6200;
+}
+.medium:hover div div.box{
+	height: 80px;
+	border: 1px solid #ff6200;	
+	height: 80px;
+}
+.medium:hover .smallbox{
+	height: 80px;
+	z-index: 100;
+}
+.serial-number{
+	line-height: 80px;
+	float: left;
+	top:0px;
+	left: 0px;
+	display: inline-block;
+	width: 50px;
+	position:absolute;
+}
+.code{
+	color: black;
+	line-height: 40px;
+	display: inline-block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 100%;
+}
+.delete{
+	text-align: center;
+    margin-top:10px ;
+    display: none;
+    color: #ff6200;
+}
+.box:hover .delete{
+	display: block;
+	cursor: pointer;
+}
+.layel{
+    width: 500px;
+    background: #fff;
+    padding:10px 30px;
+    z-index: 999;
+}
+.text{
+	text-align: center;
+	margin-top: 50px;
+}
+.determine,.cancel,.generation{
+    width: 73px;
+    height:30px;
+    background: #ff6200;
+    color:white;
+    margin-top: 80px;
+}
+.cancel{
+    background: #fff;
+    color:#666;
+}
+.pop2{
+    position: fixed;
+    width: 100%;
+    height:100%;
+    top:0;
+    left:0;
+    z-index: 9999;
+    display: none;
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ibaixiong.erp.dao.sysset.ErpBaseRoleDao" >
+  <resultMap id="BaseResultMap" type="com.ibaixiong.entity.ErpBaseRole" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="roles" property="roles" jdbcType="VARCHAR" />
+    <result column="operate_type" property="operateType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, roles, operate_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_erp_base_role
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="getErpBaseRoleByType" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_erp_base_role
+    where operate_type = #{type,jdbcType=VARCHAR}
+  </select>
+</mapper>

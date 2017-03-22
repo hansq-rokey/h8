@@ -1,0 +1,110 @@
+.ledgertable tr td{
+	border:1px solid #dfdfdf;
+    height:39px;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.ledgertable thead{
+	background:#fafafa;
+    color:#999999;
+}
+.ledgertable tbody{
+    color:#666;
+}
+.ledgertable tbody tr td{
+    height:40px;
+}
+.partlist{
+    position: relative;
+    border-bottom:1px solid #dcdcdc;
+    width: 100%;
+    height:40px;
+}
+.partlist li{
+    width:100px;
+    height:40px;
+    float: left;
+}
+.partlist li span.switch{
+    width: 85px;
+    display: inline-block;
+    height:40px;
+    line-height:40px;
+    margin:0 7px;
+    text-align: center;
+    cursor: pointer;
+}
+.partlist li span.switched{
+    border-bottom:2px solid #03a9f4;
+}
+.inforbox{
+    position: absolute;
+    top:40px;
+    left:0;
+    display: none;
+    margin-top:20px ;
+}
+.selectinforbox{
+    display: block;
+}
+.inforbox table{
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+    margin-top:13px;
+}
+.inforbox table thead{
+    background:#fafafa;
+}
+.inforbox table tr td {
+    border: 1px solid #dcdcdc;
+    height: 40px;
+}
+.search,.add-unusual{
+	margin-left: 20px;
+	background:#ff6200;
+	color: white;
+	width: 100px;
+	height: 30px;
+}
+.settlementbtn{
+	float: right;
+	background:#ff6200;
+	color: white;
+	width: 100px;
+	height: 30px;
+}
+.savelink,.cancellink,.hideinput{
+	display: none;
+}
+.stocktable tr td:last-child{
+    width: 220px;
+}
+.addtypename{
+    display: inline-block;
+    width: 80px;
+    text-align: right;
+    height:30px;
+    line-height:30px;
+    vertical-align: top;
+}
+.unusual-text{
+    width: 260px;
+    height:80px;
+    padding-left:10px;
+    border:1px solid #dcdcdc;
+}
+.urlvalue{
+    width: 260px;
+    height:30px;
+}
+.surebtn{
+    width: 73px;
+    height:30px;
+    background: #ff6200;
+    color:white;
+}
+.layel div.row{
+    text-align: center;
+}

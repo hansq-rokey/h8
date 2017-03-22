@@ -1,0 +1,29 @@
+.product p{
+	margin-top: 8px;
+}
+.orangetext{
+	color: #ff6200;
+	font-size: 26px;
+}
+table{
+	width: 100%;
+    border-collapse: collapse;
+    margin-top:13px;
+}
+table tr td{
+	border:1px solid #dfdfdf;
+    height:39px;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+table thead{
+	background:#fafafa;
+    color:#999999;
+}
+tbody{
+    color:#666;
+}
+tbody tr td{
+    height:40px;
+}

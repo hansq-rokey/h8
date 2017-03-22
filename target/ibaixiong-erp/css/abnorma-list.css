@@ -1,0 +1,35 @@
+.content{
+	margin-top: 10px;
+}
+.only-code{
+	margin-right: 20px;
+}
+.search{
+	margin-left: 20px;
+	background:#ff6200;
+	color: white;
+	width: 100px;
+	height: 30px;
+}
+.abnormaltable{
+	width: 100%;
+    border-collapse: collapse;
+    margin-top:18px;
+}
+.abnormaltable tr td{
+	border:1px solid #dfdfdf;
+    height:39px;
+    text-align: center;
+    padding-left:5px ;
+    padding-right:5px ;
+}
+.abnormaltable thead{
+	background:#fafafa;
+    color:#999999;
+}
+.abnormaltable tbody{
+    color:#666;
+}
+.abnormaltable tbody tr td{
+    height:40px;
+}

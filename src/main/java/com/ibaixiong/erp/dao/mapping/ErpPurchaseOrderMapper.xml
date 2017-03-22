@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ibaixiong.erp.dao.purchase.ErpPurchaseOrderDao" >
+  <resultMap id="BaseResultMap" type="com.ibaixiong.entity.ErpPurchaseOrder" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date_time" property="createDateTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="invalid" property="invalid" jdbcType="TINYINT" />
+    <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="batch" property="batch" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="order_num" property="orderNum" jdbcType="INTEGER" />
+    <result column="transport_time" property="transportTime" jdbcType="DATE" />
+    <result column="transport_type" property="transportType" jdbcType="VARCHAR" />
+    <result column="end_time" property="endTime" jdbcType="DATE" />
+    <result column="put_storage_num" property="putStorageNum" jdbcType="INTEGER" />
+    <result column="Surplus_storage_num" property="surplusStorageNum" jdbcType="INTEGER" />
+    <result column="category_id" property="categoryId" jdbcType="BIGINT"/>
+    <result column="category_model_id" property="categoryModelId" jdbcType="BIGINT"/>
+    <result column="category_model_format_id" property="categoryModelFormatId" jdbcType="BIGINT"/>
+  	<association column="admin_id" property="admin" select="com.ibaixiong.erp.dao.sys.SysAdminDao.selectByPrimaryKey"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_date_time, update_time, status, invalid, order_number, category_model_format_id, 
+    batch, description, order_num, transport_time, transport_type, end_time, admin_id, 
+    put_storage_num, Surplus_storage_num,category_id,category_model_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_erp_purchase_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="getList" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_erp_purchase_order
+    where invalid = 0 order by create_date_time desc
+  </select>
+  <select id="getOrderByCategoryBatch" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_erp_purchase_order
+    where category_id = #{categoryId} and category_model_id = #{categoryModelId} and category_model_format_id = #{categoryModelFormatId} and batch = #{batch}
+  </select>
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    update tbl_erp_purchase_order set invalid = 1
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <insert id="insert" parameterType="com.ibaixiong.entity.ErpPurchaseOrder" >
+    insert into tbl_erp_purchase_order (id, create_date_time, update_time, 
+      status, invalid, order_number, 
+      category_model_format_id, batch, description, 
+      order_num, transport_time, transport_type, 
+      end_time, admin_id, put_storage_num, 
+      Surplus_storage_num)
+    values (#{id,jdbcType=BIGINT}, #{createDateTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=TINYINT}, #{invalid,jdbcType=TINYINT}, #{orderNumber,jdbcType=INTEGER}, 
+      #{categoryModelFormatId,jdbcType=BIGINT}, #{batch,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{orderNum,jdbcType=INTEGER}, #{transportTime,jdbcType=DATE}, #{transportType,jdbcType=VARCHAR}, 
+      #{endTime,jdbcType=DATE}, #{adminId,jdbcType=BIGINT}, #{putStorageNum,jdbcType=INTEGER}, 
+      #{surplusStorageNum,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ibaixiong.entity.ErpPurchaseOrder" useGeneratedKeys="true" keyProperty="id">
+    insert into tbl_erp_purchase_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="createDateTime != null" >
+        create_date_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="invalid != null" >
+        invalid,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+      <if test="category != null" >
+        category_id,
+      </if>
+      <if test="categoryModel != null" >
+        category_model_id,
+      </if>
+      <if test="categoryModelFormat != null" >
+        category_model_format_id,
+      </if>
+      <if test="batch != null" >
+        batch,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="transportTime != null" >
+        transport_time,
+      </if>
+      <if test="transportType != null" >
+        transport_type,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="admin != null" >
+        admin_id,
+      </if>
+      <if test="putStorageNum != null" >
+        put_storage_num,
+      </if>
+      <if test="surplusStorageNum != null" >
+        Surplus_storage_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="createDateTime != null" >
+        #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category.id,jdbcType=BIGINT},
+      </if>
+      <if test="categoryModel != null" >
+        #{categoryModel.id,jdbcType=BIGINT},
+      </if>
+      <if test="categoryModelFormat != null" >
+        #{categoryModelFormat.id,jdbcType=BIGINT},
+      </if>
+      <if test="batch != null" >
+        #{batch,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="transportTime != null" >
+        #{transportTime,jdbcType=DATE},
+      </if>
+      <if test="transportType != null" >
+        #{transportType,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=DATE},
+      </if>
+      <if test="admin != null" >
+        #{admin.id,jdbcType=BIGINT},
+      </if>
+      <if test="putStorageNum != null" >
+        #{putStorageNum,jdbcType=INTEGER},
+      </if>
+      <if test="surplusStorageNum != null" >
+        #{surplusStorageNum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ibaixiong.entity.ErpPurchaseOrder" >
+    update tbl_erp_purchase_order
+    <set >
+      <if test="createDateTime != null" >
+        create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        invalid = #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        category_id = #{category.id,jdbcType=BIGINT},
+      </if>
+      <if test="categoryModel != null" >
+        category_model_id = #{categoryModel.id,jdbcType=BIGINT},
+      </if>
+      <if test="categoryModelFormat != null" >
+        category_model_format_id = #{categoryModelFormat.id,jdbcType=BIGINT},
+      </if>
+      <if test="batch != null" >
+        batch = #{batch,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="transportTime != null" >
+        transport_time = #{transportTime,jdbcType=DATE},
+      </if>
+      <if test="transportType != null" >
+        transport_type = #{transportType,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=DATE},
+      </if>
+      <if test="admin != null" >
+        admin_id = #{admin.id,jdbcType=BIGINT},
+      </if>
+      <if test="putStorageNum != null" >
+        put_storage_num = #{putStorageNum,jdbcType=INTEGER},
+      </if>
+      <if test="surplusStorageNum != null" >
+        Surplus_storage_num = #{surplusStorageNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ibaixiong.entity.ErpPurchaseOrder" >
+    update tbl_erp_purchase_order
+    set create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      invalid = #{invalid,jdbcType=TINYINT},
+      order_number = #{orderNumber,jdbcType=VARCHAR},
+      category_model_format_id = #{categoryModelFormatId,jdbcType=BIGINT},
+      batch = #{batch,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=INTEGER},
+      transport_time = #{transportTime,jdbcType=DATE},
+      transport_type = #{transportType,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=DATE},
+      admin_id = #{adminId,jdbcType=BIGINT},
+      put_storage_num = #{putStorageNum,jdbcType=INTEGER},
+      Surplus_storage_num = #{surplusStorageNum,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,100 @@
+.searchbtn{
+    width: 100px;
+    height:30px;
+    background:#ff6200;
+    color:#fff;
+    margin-left:15px;
+}
+.handleloglist{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top:13px;
+}
+.handleloglist thead{
+    background:#fafafa;
+    color:#999999;
+}
+.handleloglist tbody{
+    color:#666;
+}
+.handleloglist tr td{
+    border:1px solid #dfdfdf;
+    height:40px;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.layel{
+    width: 447px;
+    background: #fff;
+    padding:10px 30px;
+    z-index: 999;
+}
+.layel2{
+    width: 500px;
+    height:340px;
+    background: #fff;
+    padding:10px 30px;
+    top:50%;
+    left:50%;
+    margin-left:-250px;
+    margin-top:-170px;
+    z-index: 999;
+}
+.confirm,.cancel{
+    width: 100px;
+    height:30px;
+    background: #ff6200;
+    color:#fff;
+    margin-top: 20px;
+}
+.cancel{
+    background: #fff;
+    color:#666;
+}
+.ok,.no{
+    width: 100px;
+    height:30px;
+    background: #ff6200;
+    color:#fff;
+    margin-top: 30px;
+}
+.no{
+    background: #fff;
+    color:#666;
+}
+.bigbox{
+	margin-top: 10px;;
+	margin-left: 40px;
+}
+.text{
+	display: inline-block;
+	width: 80px;
+}
+textarea{
+	width: 182px;
+}
+.description
+{
+	vertical-align: top;
+}
+.pop2{
+    position: fixed;
+    width: 100%;
+    height:100%;
+    top:0;
+    left:0;
+    z-index: 9999;
+    display: none;
+}
+.question{
+	display: block;
+	margin: 0 auto;
+}
+.prompt{
+	text-align: center;
+	margin-top: 20px;
+}
+.remarks{
+	vertical-align: top;
+}

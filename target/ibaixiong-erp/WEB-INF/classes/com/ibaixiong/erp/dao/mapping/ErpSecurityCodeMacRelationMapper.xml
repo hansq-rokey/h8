@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ibaixiong.erp.dao.oem.ErpSecurityCodeMacRelationDao" >
+  <resultMap id="BaseResultMap" type="com.ibaixiong.entity.ErpSecurityCodeMacRelation" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date_time" property="createDateTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="invalid" property="invalid" jdbcType="TINYINT" />
+    <result column="security_code" property="securityCode" jdbcType="VARCHAR" />
+    <result column="mac" property="mac" jdbcType="VARCHAR" />
+    <result column="is_smart" property="isSmart" jdbcType="TINYINT" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="BIGINT" />
+    <result column="model_id" jdbcType="BIGINT" property="modelId" />
+    <result column="model_name" jdbcType="VARCHAR" property="modelName" />
+    <result column="format_id" jdbcType="BIGINT" property="formatId" />
+    <result column="format_name" jdbcType="VARCHAR" property="formatName" />
+    <result column="oem_id" jdbcType="BIGINT" property="oemId" />
+    <result column="batch" jdbcType="CHAR" property="batch" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_date_time, update_time, status, invalid, security_code, mac, is_smart, 
+    url, creator, model_id, model_name, format_id, format_name, oem_id,batch
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    	security_code
+    from tbl_erp_security_code_mac_relation
+  </select>
+  <select id="queryAll" resultType="String">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_erp_security_code_mac_relation
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <select id="getSecurityCodeMacRelation" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_erp_security_code_mac_relation
+    where security_code = #{fwm,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_erp_security_code_mac_relation
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ibaixiong.entity.ErpSecurityCodeMacRelation" >
+    insert into tbl_erp_security_code_mac_relation (id, create_date_time, update_time, 
+      status, invalid, security_code, 
+      mac, is_smart, url, 
+      creator, model_id, model_name, 
+      format_id, format_name, oem_id,batch
+      )
+    values (#{id,jdbcType=BIGINT}, #{createDateTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=TINYINT}, #{invalid,jdbcType=TINYINT}, #{securityCode,jdbcType=VARCHAR}, 
+      #{mac,jdbcType=VARCHAR}, #{isSmart,jdbcType=TINYINT}, #{url,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=BIGINT}, #{modelId,jdbcType=BIGINT}, #{modelName,jdbcType=VARCHAR}, 
+      #{formatId,jdbcType=BIGINT}, #{formatName,jdbcType=VARCHAR}, #{oemId,jdbcType=BIGINT}, #{batch,jdbcType=CHAR}
+      )
+  </insert>
+  
+  <insert id="insertBath" parameterType="java.util.Set" >
+    insert into tbl_erp_security_code_mac_relation (create_date_time, 
+      status, invalid, security_code, mac, is_smart, url, creator, model_id, model_name, 
+      format_id, format_name, oem_id,batch)
+    values
+    <foreach collection="list" item="item" index="index" separator="," >  
+     (#{item.createDateTime,jdbcType=TIMESTAMP},  
+      #{item.status,jdbcType=TINYINT}, #{item.invalid,jdbcType=TINYINT}, #{item.securityCode,jdbcType=VARCHAR}, 
+      #{item.mac,jdbcType=VARCHAR}, #{item.isSmart,jdbcType=TINYINT}, #{item.url,jdbcType=VARCHAR}, 
+      #{item.creator,jdbcType=BIGINT}, #{item.modelId,jdbcType=BIGINT}, #{item.modelName,jdbcType=VARCHAR}, 
+      #{item.formatId,jdbcType=BIGINT}, #{item.formatName,jdbcType=VARCHAR}, #{item.oemId,jdbcType=BIGINT}, 
+      #{item.batch,jdbcType=CHAR}) 
+    </foreach>  
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.ibaixiong.entity.ErpSecurityCodeMacRelation" >
+   insert into tbl_erp_security_code_mac_relation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createDateTime != null">
+        create_date_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="invalid != null">
+        invalid,
+      </if>
+      <if test="securityCode != null">
+        security_code,
+      </if>
+      <if test="mac != null">
+        mac,
+      </if>
+      <if test="isSmart != null">
+        is_smart,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="modelId != null">
+        model_id,
+      </if>
+      <if test="modelName != null">
+        model_name,
+      </if>
+      <if test="formatId != null">
+        format_id,
+      </if>
+      <if test="formatName != null">
+        format_name,
+      </if>
+      <if test="oemId != null">
+        oem_id,
+      </if>
+       <if test="batch != null">
+        batch,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createDateTime != null">
+        #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null">
+        #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="securityCode != null">
+        #{securityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="mac != null">
+        #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="isSmart != null">
+        #{isSmart,jdbcType=TINYINT},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="modelId != null">
+        #{modelId,jdbcType=BIGINT},
+      </if>
+      <if test="modelName != null">
+        #{modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="formatId != null">
+        #{formatId,jdbcType=BIGINT},
+      </if>
+      <if test="formatName != null">
+        #{formatName,jdbcType=VARCHAR},
+      </if>
+      <if test="oemId != null">
+        #{oemId,jdbcType=BIGINT},
+      </if>
+      <if test="batch != null">
+        #{batch,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ibaixiong.entity.ErpSecurityCodeMacRelation">
+    update tbl_erp_security_code_mac_relation
+    <set>
+      <if test="createDateTime != null">
+        create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null">
+        invalid = #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="securityCode != null">
+        security_code = #{securityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="mac != null">
+        mac = #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="isSmart != null">
+        is_smart = #{isSmart,jdbcType=TINYINT},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="modelId != null">
+        model_id = #{modelId,jdbcType=BIGINT},
+      </if>
+      <if test="modelName != null">
+        model_name = #{modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="formatId != null">
+        format_id = #{formatId,jdbcType=BIGINT},
+      </if>
+      <if test="formatName != null">
+        format_name = #{formatName,jdbcType=VARCHAR},
+      </if>
+      <if test="oemId != null">
+        oem_id = #{oemId,jdbcType=BIGINT},
+      </if>
+       <if test="batch != null">
+        batch = #{batch,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ibaixiong.entity.ErpSecurityCodeMacRelation">
+    update tbl_erp_security_code_mac_relation
+    set create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      invalid = #{invalid,jdbcType=TINYINT},
+      security_code = #{securityCode,jdbcType=VARCHAR},
+      mac = #{mac,jdbcType=VARCHAR},
+      is_smart = #{isSmart,jdbcType=TINYINT},
+      url = #{url,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=BIGINT},
+      model_id = #{modelId,jdbcType=BIGINT},
+      model_name = #{modelName,jdbcType=VARCHAR},
+      format_id = #{formatId,jdbcType=BIGINT},
+      format_name = #{formatName,jdbcType=VARCHAR},
+      oem_id = #{oemId,jdbcType=BIGINT},
+      batch = #{batch,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

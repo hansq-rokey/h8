@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ibaixiong.erp.dao.oem.ErpSmartOemDao" >
+  <resultMap id="BaseResultMap" type="com.ibaixiong.entity.ErpSmartOem" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date_time" property="createDateTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="invalid" property="invalid" jdbcType="TINYINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="oem_code" property="oemCode" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="link_man" property="linkMan" jdbcType="VARCHAR" />
+    <result column="link_phone" property="linkPhone" jdbcType="CHAR" />
+    <result column="MAC_4" property="mac4" jdbcType="CHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ibaixiong.entity.ErpSmartOem" extends="BaseResultMap" >
+    <result column="description" property="description" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_date_time, update_time, status, invalid, name, oem_code, address, link_man, 
+    link_phone, MAC_4
+  </sql>
+  <sql id="Blob_Column_List" >
+    description
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_erp_smart_oem
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_erp_smart_oem
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ibaixiong.entity.ErpSmartOem" >
+    insert into tbl_erp_smart_oem (id, create_date_time, update_time, 
+      status, invalid, name, 
+      oem_code, address, link_man, 
+      link_phone, MAC_4, description
+      )
+    values (#{id,jdbcType=BIGINT}, #{createDateTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=TINYINT}, #{invalid,jdbcType=TINYINT}, #{name,jdbcType=VARCHAR}, 
+      #{oemCode,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{linkMan,jdbcType=VARCHAR}, 
+      #{linkPhone,jdbcType=CHAR}, #{mac4,jdbcType=CHAR}, #{description,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ibaixiong.entity.ErpSmartOem" >
+    insert into tbl_erp_smart_oem
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createDateTime != null" >
+        create_date_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="invalid != null" >
+        invalid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="oemCode != null" >
+        oem_code,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="linkMan != null" >
+        link_man,
+      </if>
+      <if test="linkPhone != null" >
+        link_phone,
+      </if>
+      <if test="mac4 != null" >
+        MAC_4,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createDateTime != null" >
+        #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="oemCode != null" >
+        #{oemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="linkMan != null" >
+        #{linkMan,jdbcType=VARCHAR},
+      </if>
+      <if test="linkPhone != null" >
+        #{linkPhone,jdbcType=CHAR},
+      </if>
+      <if test="mac4 != null" >
+        #{mac4,jdbcType=CHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ibaixiong.entity.ErpSmartOem" >
+    update tbl_erp_smart_oem
+    <set >
+      <if test="createDateTime != null" >
+        create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        invalid = #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="oemCode != null" >
+        oem_code = #{oemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="linkMan != null" >
+        link_man = #{linkMan,jdbcType=VARCHAR},
+      </if>
+      <if test="linkPhone != null" >
+        link_phone = #{linkPhone,jdbcType=CHAR},
+      </if>
+      <if test="mac4 != null" >
+        MAC_4 = #{mac4,jdbcType=CHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ibaixiong.entity.ErpSmartOem" >
+    update tbl_erp_smart_oem
+    set create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      invalid = #{invalid,jdbcType=TINYINT},
+      name = #{name,jdbcType=VARCHAR},
+      oem_code = #{oemCode,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      link_man = #{linkMan,jdbcType=VARCHAR},
+      link_phone = #{linkPhone,jdbcType=CHAR},
+      MAC_4 = #{mac4,jdbcType=CHAR},
+      description = #{description,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ibaixiong.entity.ErpSmartOem" >
+    update tbl_erp_smart_oem
+    set create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      invalid = #{invalid,jdbcType=TINYINT},
+      name = #{name,jdbcType=VARCHAR},
+      oem_code = #{oemCode,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      link_man = #{linkMan,jdbcType=VARCHAR},
+      link_phone = #{linkPhone,jdbcType=CHAR},
+      MAC_4 = #{mac4,jdbcType=CHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

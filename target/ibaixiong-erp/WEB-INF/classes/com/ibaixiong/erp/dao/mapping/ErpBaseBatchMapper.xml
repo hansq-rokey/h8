@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ibaixiong.erp.dao.sysset.ErpBaseBatchDao" >
+  <resultMap id="BaseResultMap" type="com.ibaixiong.entity.ErpBaseBatch" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="index_num" property="indexNum" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, index_num,category_id,category_model_id,category_model_format_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_erp_base_batch
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByBatch" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_erp_base_batch
+    where category_id = #{categoryId} and category_model_id = #{categoryModelId} and category_model_format_id = #{categoryModelFormatId} 
+  </select>
+  <insert id="insertSelective" parameterType="com.ibaixiong.entity.ErpBaseBatch" useGeneratedKeys="true" keyProperty="id">
+    insert into tbl_erp_base_batch
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="category != null" >
+        category_id,
+      </if>
+      <if test="categoryModel != null" >
+        category_model_id,
+      </if>
+      <if test="categoryModelFormat != null" >
+        category_model_format_id,
+      </if>
+      <if test="indexNum != null" >
+        index_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="category != null" >
+        #{category.id,jdbcType=BIGINT},
+      </if>
+      <if test="categoryModel != null" >
+        #{categoryModel.id,jdbcType=BIGINT},
+      </if>
+      <if test="categoryModelFormat != null" >
+        #{categoryModelFormat.id,jdbcType=BIGINT},
+      </if>
+      <if test="indexNum != null" >
+        #{indexNum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ibaixiong.entity.ErpBaseBatch" >
+    update tbl_erp_base_batch
+    <set >
+      <if test="category != null" >
+        category_id = #{category.id,jdbcType=BIGINT},
+      </if>
+      <if test="categoryModel != null" >
+        category_model_id = #{categoryModel.id,jdbcType=BIGINT},
+      </if>
+      <if test="categoryModelFormat != null" >
+        category_model_format_id = #{categoryModelFormat.id,jdbcType=BIGINT},
+      </if>
+      <if test="indexNum != null" >
+        index_num = #{indexNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+   <update id="updateIndexNum">
+   	update tbl_erp_base_batch set index_num = index_num+1 where category_id = #{categoryId} and category_model_id = #{categoryModelId} and category_model_format_id = #{categoryModelFormatId} 
+   </update>
+</mapper>

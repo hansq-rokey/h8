@@ -1,0 +1,207 @@
+.partlist{
+    position: relative;
+    border-bottom:1px solid #dcdcdc;
+    width: 100%;
+    height:40px;
+}
+.partlist li{
+    width:100px;
+    height:40px;
+    float: left;
+}
+.partlist li span.switch{
+    width: 85px;
+    display: inline-block;
+    height:40px;
+    line-height:40px;
+    margin:0 7px;
+    text-align: center;
+    cursor: pointer;
+}
+.partlist li span.switched{
+    border-bottom:2px solid #03a9f4;
+}
+.inforbox{
+    position: absolute;
+    top:40px;
+    left:0;
+    display: none;
+}
+.selectinforbox{
+    display: block;
+}
+.inforbox div table{
+    width: 100%;
+    text-align: center;
+}
+.inforbox div table thead{
+    background:#fafafa;
+}
+.inforbox div table tr td {
+    border: 1px solid #dcdcdc;
+    height: 40px;
+}
+.searchbtn{
+    width: 100px;
+    height:30px;
+    background: #ff6200;
+    color:#fff;
+    margin-left:10px;
+}
+.popbg{
+    width: 100%;
+    height:100%;
+    background: #000;
+    opacity:0.5;
+    position: absolute;
+    top:0;
+    left:0;
+}
+.layel{
+    padding:10px 30px;
+}
+.poptitle{
+    height:40px;
+    line-height:40px;
+    border-bottom:1px solid #dcdcdc;
+    text-align: left;
+    text-indent: 5px;
+    margin-bottom:30px;
+}
+.closeicon{
+    width: 9px;
+    height:9px;
+    display: inline-block;
+    background:url("../images/icon.png") no-repeat -288px -12px;
+    float: right;
+    margin-right:12px;
+    margin-top:11px;
+    cursor: pointer;
+}
+.reasontd{
+    padding:5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+#tooltip{
+    z-index: 9999;
+    position: absolute;
+    background:#fff;
+}
+.link{
+    padding:0 10px;
+}
+.popbg{
+    width: 100%;
+    height:100%;
+    background: #000;
+    opacity:0.5;
+    position: absolute;
+    top:0;
+    left:0;
+}
+.poptitle{
+    height:40px;
+    line-height:40px;
+    border-bottom:1px solid #dcdcdc;
+    text-align: left;
+    text-indent: 5px;
+    margin-bottom:30px;
+}
+.closeicon{
+    width: 9px;
+    height:9px;
+    display: inline-block;
+    background:url("../images/icon.png") no-repeat -288px -12px;
+    float: right;
+    margin-right:12px;
+    margin-top:11px;
+    cursor: pointer;
+}
+.warningtext{
+    width: 270px;
+    margin: 0 auto;
+    margin-top:30px;
+    height:80px;
+}
+.refusetext{
+    width: 470px;
+    height:130px;
+    padding:5px 10px;
+    border:1px solid #dcdcdc;
+}
+.confirm,.cancel,.confirm-send,.sure-send{
+    width: 100px;
+    height:30px;
+    background:#ff6200;
+    color:#fff;
+}
+.sendselect{
+    width: 230px;
+    float: none;
+    margin:0;
+    text-align: left;
+}
+.option{
+    width: 100%;
+}
+.expnumber{
+    width: 230px;
+}
+.addtypename{
+    display: inline-block;
+    width: 80px;
+    vertical-align: top;
+    margin-top:5px;
+    text-align: right;
+    height:30px;
+    line-height:30px;
+}
+.returnprodimg{
+    width: 120px;
+    height:120px;
+    border:1px solid #dcdcdc;
+    margin:10px;
+}
+.refundcargolist tr td:first-child{
+    width: 140px;
+}
+.pop-prod-img{
+    width: 70px;
+    height: 70px;
+    float: left;
+}
+.deliver{
+    border: 1px solid #dcdcdc;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.pop-infor-box{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.selectinput{
+    margin-left: 100px;
+}
+.col-lg-6{
+    padding:5px 10px;
+    height: 82px;
+}
+.information{
+    width:160px;
+    line-height: 35px;
+    float: left;
+}
+.select{
+    border: 1px solid #ff6200;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.order-number{
+    width: 163px;
+    float:left;
+}

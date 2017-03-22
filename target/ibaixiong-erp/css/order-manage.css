@@ -1,0 +1,214 @@
+.search{
+	margin-left: 20px;
+	background:#ff6200;
+	color: white;
+	width: 100px;
+	height: 30px;
+}
+.ordermanagetable{
+	width: 100%;
+    border-collapse: collapse;
+    margin-top:13px;
+}
+.ordermanagetable tr td{
+	border:1px solid #dfdfdf;
+    height:39px;
+    text-align: center;
+    padding-left:5px;
+    padding-right: 5px;
+}
+.ordermanagetable thead{
+	background:#fafafa;
+    color:#999999;
+}
+.ordermanagetable tbody{
+    color:#666;
+}
+.ordermanagetable tbody tr td{
+    height:40px;
+    word-wrap:break-word
+}
+.partlist{
+    position: relative;
+    border-bottom:1px solid #dcdcdc;
+    width: 100%;
+    height:40px;
+    margin-top: 15px;
+}
+.partlist li{
+    width:100px;
+    height:40px;
+    float: left;
+}
+.partlist li span.switch{
+    width: 85px;
+    display: inline-block;
+    height:40px;
+    line-height:40px;
+    margin:0 7px;
+    text-align: center;
+    cursor: pointer;
+}
+.partlist li span.switched{
+    border-bottom:2px solid #03a9f4;
+}
+.inforbox{
+    position: absolute;
+    top:40px;
+    left:0;
+    display: none;
+    margin-top:20px ;
+}
+.selectinforbox{
+    display: block;
+}
+.inforbox div table{
+    width: 100%;
+    text-align: center;
+}
+.inforbox div table thead{
+    background:#fafafa;
+}
+.inforbox div table tr td {
+    border: 1px solid #dcdcdc;
+    height: 40px;
+}
+.disablebtn{
+    width: 100px;
+    height:30px;
+    background: #ff6200;
+    color:#fff;
+    margin-top: 100px;
+}
+.distribution-ok,.cancel,.confirm-send,.sure-send{
+    width: 100px;
+    height:30px;
+    background: #ff6200;
+    color:#fff;
+    margin-top: 30px;
+}
+.cancel{
+    background: #fff;
+    color:#666;
+}
+.sure-send,.cancel-send{
+	margin-top:50px;
+}
+.question{
+	display: block;
+	margin: 0 auto;
+}
+.prompt{
+	text-align: center;
+	margin-top: 20px;
+}
+.pop2{
+    position: fixed;
+    width: 100%;
+    height:100%;
+    top:0;
+    left:0;
+    z-index: 9999;
+    display: none;
+}
+.confirm,.cancel{
+    width: 100px;
+    height:30px;
+    background: #ff6200;
+    color:#fff;
+    margin-top:20px;
+}
+.cancel{
+    background: #fff;
+    color:#666;
+}
+.left{
+	float: left;
+	margin-left: 50px;
+}
+.right{
+	float: left;
+	margin-left: 15px;
+}
+.right input{
+	margin-top: 10px;
+}
+.bigbox{
+	overflow: hidden;
+	margin-bottom: 10px;
+}
+.selectinput{
+	margin-left: 50px;
+}
+.pop-prod-img{
+    width: 70px;
+    height: 70px;
+    float: left;
+}
+.deliver{
+    border: 1px solid #dcdcdc;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.pop-infor-box{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.selectinput{
+    margin-left: 100px;
+    margin-top: 20px;
+}
+.col-lg-6{
+    padding:5px 10px;
+    height: 82px;
+}
+.information{
+    width:160px;
+    line-height: 35px;
+    float: left;
+}
+.fahuo{
+    position: absolute;
+    top:0px;
+    right: 0px;
+}
+.row{
+    padding:0;
+}
+.select{
+    border: 1px solid #ff6200;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.order-number{
+    margin-top: 20px;
+    width: 163px;
+}
+.specifications{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 180px;
+}
+.rightbox{
+    position: relative;
+    margin-bottom:50px;
+}
+.reasontd{
+    padding:5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+#tooltip{
+    z-index: 9999;
+    position: absolute;
+    background:#fff;
+    padding:5px;
+    -webkit-box-shadow:0 0 10px rgba(200, 204, 204, .5);
+    -moz-box-shadow:0 0 10px rgba(200, 204, 204, .5);
+    box-shadow: 0 0 10px rgba(200, 204, 204, .5);
+}

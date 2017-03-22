@@ -1,0 +1,36 @@
+.content{
+	margin-top: 20px;
+}
+input.product-name{
+	margin-right: 20px;
+	width: 230px;
+}
+.search{
+	margin-left: 20px;
+	background:#ff6200;
+	color: white;
+	width: 100px;
+	height: 30px;
+}
+.scan-recordtable{
+	width: 100%;
+    border-collapse: collapse;
+    margin-top:13px;
+}
+.scan-recordtable tr td{
+	border:1px solid #dfdfdf;
+    height:39px;
+    text-align: center;
+    padding-left:5px;
+    padding-right: 5px;
+}
+.scan-recordtable thead{
+	background:#fafafa;
+    color:#999999;
+}
+.scan-recordtable tbody{
+    color:#666;
+}
+.scan-recordtable tbody tr td{
+    height:40px;
+}

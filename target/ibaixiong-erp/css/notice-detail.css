@@ -1,0 +1,35 @@
+.pathbox{
+	width: 100%;
+}
+.biaoti{
+	font-size: 24px;
+	text-align: center;
+	margin-top: 50px;
+	margin-bottom: 76px;
+}
+.main{
+	position: absolute;
+	width: 42%;
+	margin-left: 300px;
+}
+.neirong{
+	font-size: 20px;
+	line-height: 50px;
+	font-family: "微软雅黑";
+	border:1px solid #dcdcdc;
+	padding:53px 66px;
+}
+.first-paragraph{
+	text-indent: 2em;
+}
+.second-paragraph{
+	margin-top: 27px;
+}
+.fourth-paragraph{
+	margin-top: 27px;
+}
+.inscribe{
+	position: absolute;
+	top:450px;
+	left: 560px;
+}

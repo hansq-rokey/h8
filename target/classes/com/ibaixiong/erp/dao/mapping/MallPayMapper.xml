@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ibaixiong.erp.dao.storage.MallPayDao" >
+  <resultMap id="BaseResultMap" type="com.ibaixiong.entity.MallPay" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="pay_number" property="payNumber" jdbcType="CHAR" />
+    <result column="order_number" property="orderNumber" jdbcType="CHAR" />
+    <result column="third_number" property="thirdNumber" jdbcType="VARCHAR" />
+    <result column="pay_real" property="payReal" jdbcType="REAL" />
+    <result column="pay_should" property="payShould" jdbcType="REAL" />
+    <result column="pay_type" property="payType" jdbcType="TINYINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="create_date_time" property="createDateTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, pay_number, order_number, third_number, pay_real, pay_should, pay_type, user_id, 
+    status, create_date_time, update_time, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_mall_pay
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="getListByOrderNumber" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_mall_pay
+    where order_number = #{orderNumber}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_mall_pay
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ibaixiong.entity.MallPay" >
+    insert into tbl_mall_pay (id, pay_number, order_number, 
+      third_number, pay_real, pay_should, 
+      pay_type, user_id, status, 
+      create_date_time, update_time, remark
+      )
+    values (#{id,jdbcType=BIGINT}, #{payNumber,jdbcType=CHAR}, #{orderNumber,jdbcType=CHAR}, 
+      #{thirdNumber,jdbcType=VARCHAR}, #{payReal,jdbcType=REAL}, #{payShould,jdbcType=REAL}, 
+      #{payType,jdbcType=TINYINT}, #{userId,jdbcType=BIGINT}, #{status,jdbcType=TINYINT}, 
+      #{createDateTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ibaixiong.entity.MallPay" useGeneratedKeys="true" keyProperty="id">
+    insert into tbl_mall_pay
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="payNumber != null" >
+        pay_number,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+      <if test="thirdNumber != null" >
+        third_number,
+      </if>
+      <if test="payReal != null" >
+        pay_real,
+      </if>
+      <if test="payShould != null" >
+        pay_should,
+      </if>
+      <if test="payType != null" >
+        pay_type,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createDateTime != null" >
+        create_date_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="payNumber != null" >
+        #{payNumber,jdbcType=CHAR},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=CHAR},
+      </if>
+      <if test="thirdNumber != null" >
+        #{thirdNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="payReal != null" >
+        #{payReal,jdbcType=REAL},
+      </if>
+      <if test="payShould != null" >
+        #{payShould,jdbcType=REAL},
+      </if>
+      <if test="payType != null" >
+        #{payType,jdbcType=TINYINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createDateTime != null" >
+        #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ibaixiong.entity.MallPay" >
+    update tbl_mall_pay
+    <set >
+      <if test="payNumber != null" >
+        pay_number = #{payNumber,jdbcType=CHAR},
+      </if>
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=CHAR},
+      </if>
+      <if test="thirdNumber != null" >
+        third_number = #{thirdNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="payReal != null" >
+        pay_real = #{payReal,jdbcType=REAL},
+      </if>
+      <if test="payShould != null" >
+        pay_should = #{payShould,jdbcType=REAL},
+      </if>
+      <if test="payType != null" >
+        pay_type = #{payType,jdbcType=TINYINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createDateTime != null" >
+        create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ibaixiong.entity.MallPay" >
+    update tbl_mall_pay
+    set pay_number = #{payNumber,jdbcType=CHAR},
+      order_number = #{orderNumber,jdbcType=CHAR},
+      third_number = #{thirdNumber,jdbcType=VARCHAR},
+      pay_real = #{payReal,jdbcType=REAL},
+      pay_should = #{payShould,jdbcType=REAL},
+      pay_type = #{payType,jdbcType=TINYINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      status = #{status,jdbcType=TINYINT},
+      create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

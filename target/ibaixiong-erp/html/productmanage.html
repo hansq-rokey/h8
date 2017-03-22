@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link href="../plug/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../css/pubstyle.css" rel="stylesheet" type="text/css">
+    <link href="../css/productmanage.css" rel="stylesheet" type="text/css">
+    <script src="../plug/jQuery/jquery-1.8.3.min.js" type="text/javascript" ></script>
+    <script src="../js/public.js" type="text/javascript" ></script>
+    <title>产品批次管理</title>
+</head>
+<body>
+<header class="pubtop">
+    <img src="../images/userimg.png" class="userimg fl">
+    <span class="username fl">杀阡陌<i class="arrow arrowdown"></i> </span>
+</header>
+<aside class="publeftnav">
+    <ul class="publeftnavul">
+        <li class="firstnavli">
+            <a href="#"> <span class="firstnav"><i class="marks prodicon"></i>商品管理<i class="arrow arrow-right"></i></span></a>
+            <ul>
+                <a href="#"><li class="secondnavli"><span class="secondnav">商品列表</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">新增商品</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">类目设置</span></li></a>
+            </ul>
+        </li>
+        <li class="firstnavli">
+            <a href="#"> <span class="firstnav"><i class="marks equipicon"></i>设备管理<i class="arrow arrow-right"></i></span></a>
+            <ul>
+                <a href="#"><li class="secondnavli"><span class="secondnav">商品列表</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">新增商品</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">类目设置</span></li></a>
+            </ul>
+        </li>
+        <li class="firstnavli">
+            <a href="#"> <span class="firstnav"><i class="marks finanicon"></i>财务管理<i class="arrow arrow-right"></i></span></a>
+            <ul>
+                <a href="#"><li class="secondnavli"><span class="secondnav">商品列表</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">新增商品</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">类目设置</span></li></a>
+            </ul>
+        </li>
+        <li class="firstnavli">
+            <a href="#"> <span class="firstnav"><i class="marks storageicon"></i>仓储管理<i class="arrow arrow-right"></i></span></a>
+            <ul>
+                <a href="#"><li class="secondnavli"><span class="secondnav">商品列表</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">新增商品</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">类目设置</span></li></a>
+            </ul>
+        </li>
+        <li class="firstnavli">
+            <a href="#"> <span class="firstnav"><i class="marks bbsicon"></i>社区管理<i class="arrow arrow-right"></i></span></a>
+            <ul>
+                <a href="#"><li class="secondnavli"><span class="secondnav">商品列表</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">新增商品</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">类目设置</span></li></a>
+            </ul>
+        </li>
+        <li class="firstnavli">
+            <a href="#"> <span class="firstnav"><i class="marks usericon"></i>用户管理<i class="arrow arrow-right"></i></span></a>
+            <ul>
+                <a href="#"><li class="secondnavli"><span class="secondnav">商品列表</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">新增商品</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">类目设置</span></li></a>
+            </ul>
+        </li>
+        <li class="firstnavli">
+            <a href="#"> <span class="firstnav"><i class="marks saleaftericon"></i>售后管理<i class="arrow arrow-right"></i></span></a>
+            <ul>
+                <a href="#"><li class="secondnavli"><span class="secondnav">商品列表</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">新增商品</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">类目设置</span></li></a>
+            </ul>
+        </li>
+        <li class="firstnavli">
+            <a href="#"> <span class="firstnav"><i class="marks systemicon"></i>系统管理<i class="arrow arrow-right"></i></span></a>
+            <ul>
+                <a href="#"><li class="secondnavli"><span class="secondnav">商品列表</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">新增商品</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">类目设置</span></li></a>
+            </ul>
+        </li>
+        <li class="firstnavli">
+            <a href="#"> <span class="firstnav"><i class="marks customericon"></i>客诉管理<i class="arrow arrow-right"></i></span></a>
+            <ul>
+                <a href="#"><li class="secondnavli"><span class="secondnav">商品列表</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">新增商品</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">类目设置</span></li></a>
+            </ul>
+        </li>
+    </ul>
+</aside>
+<div class="rightbox">
+    <section>
+    	<h3 class="title currenttitle">产品批次管理<i class="closeicon"></i> </h3>
+        <table>
+        	<thead>
+        		<tr>
+        			<td>产品名称</td>
+        			<td>产品编码</td>
+        			<td>产品规格</td>
+        			<td>操作</td>
+        		</tr>
+        	</thead>
+        	<tbody>
+        		<tr>
+        			<td>白熊智能暖气</td>
+        			<td>0343</td>
+        			<td>规格1</td>
+        			<td>
+                       <a href="#" class="link disable">禁用</a>
+                       <a href="#" class="link able">激活</a>
+                       <a href="#" class="link">详情</a>
+        			</td>
+        		</tr>
+        		<tr>
+        			<td>白熊智能暖气</td>
+        			<td>0343</td>
+        			<td>规格1</td>
+        			<td>
+        				<a href="#" class="link disable">禁用</a>
+                       <a href="#" class="link able">激活</a>
+                       <a href="#" class="link">详情</a>
+                    </td>
+        		</tr>
+        		<tr>
+        			<td>白熊智能暖气</td>
+        			<td>0343</td>
+        			<td>规格1</td>
+        			<td>
+        			   <a href="#" class="link disable">禁用</a>
+                       <a href="#" class="link able">激活</a>
+                       <a href="#" class="link">详情</a>
+                    </td>
+        		</tr>
+        	</tbody>
+        </table>
+	</section>
+</div>
+<div class="pop delreasonpop" style="display: none;">
+	<div class="popbg"></div>
+    <div class="layel">
+        <h3 class="poptitle">禁用账号<i class="closeicon"></i> </h3>
+        <p class="text">禁用后相关产品将无法分配给员工进行包装扫码等工作，是否禁用？</p>
+        <div class="row tc">
+            <input type="button" value="禁用" class="disablebtn">
+        </div>
+    </div>
+</div>
+<div class="pop2 delreasonpop" style="display: none;">
+	<div class="popbg"></div>
+    <div class="layel">
+        <h3 class="poptitle">解除禁用<i class="closeicon"></i> </h3>
+        <p class="text">激活禁用后相关产品将可以分配给员工进行扫码包装等权限，是否激活？</p>
+        <div class="row tc">
+            <input type="button" value="解禁" class="ablebtn">
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+	    $(document).on('click','.disable',function(){
+		    $('.pop').show()
+            $('.select').removeClass('select');
+            $(this).parent().addClass('select');
+	    })
+	    $(document).on('click','.disablebtn',function(){
+	    	$('.pop').hide();
+	    	$('.select').find('.disable').hide();
+            $('.select').find('.able').show();   
+	    })
+	    $(document).on('click','.able',function(){
+		    $('.pop2').show();
+		    $('.select').removeClass('select');
+            $(this).parent().addClass('select');
+	    })
+	    $(document).on('click','.ablebtn',function(){
+	    	$('.pop2').hide();
+	    	$('.select').find('.able').hide();
+	    	$('.select').find('.disable').show();
+	    })
+	    $(document).on('click','.addbtn',function(){
+	    	$('.pop3').show();
+	    })
+	})
+</script>
+</body>
+</html>

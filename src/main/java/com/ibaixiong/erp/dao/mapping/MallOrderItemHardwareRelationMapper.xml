@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ibaixiong.erp.dao.storage.MallOrderItemHardwareRelationDao" >
+  <resultMap id="BaseResultMap" type="com.ibaixiong.entity.MallOrderItemHardwareRelation" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date_time" property="createDateTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="invalid" property="invalid" jdbcType="TINYINT" />
+    <result column="order_item_id" property="orderItemId" jdbcType="BIGINT" />
+    <result column="hardware_product_id" property="hardwareProductId" jdbcType="BIGINT" />
+    <result column="unique_code" property="uniqueCode" jdbcType="CHAR" />
+    <result column="category_model_format_id" property="categoryModelFormatId" jdbcType="BIGINT" />
+    <result column="is_custom_made" property="isCustomMade" jdbcType="TINYINT" />
+    <result column="admin_id" property="adminId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_date_time, update_time, status, invalid, order_item_id, hardware_product_id, 
+    unique_code, category_model_format_id, is_custom_made, admin_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_mall_order_item_hardware_relation
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByHardwareProductId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_mall_order_item_hardware_relation
+    where hardware_product_id = #{hardwareProductId,jdbcType=BIGINT}
+  </select>
+  <select id="selectByOrderItemId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_mall_order_item_hardware_relation
+    where order_item_id = #{orderItemId,jdbcType=BIGINT}
+  </select>
+  <select id="selectByUniqueCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_mall_order_item_hardware_relation
+    where unique_code = #{uniqueCode,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_mall_order_item_hardware_relation
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ibaixiong.entity.MallOrderItemHardwareRelation" >
+    insert into tbl_mall_order_item_hardware_relation (id, create_date_time, update_time, 
+      status, invalid, order_item_id, 
+      hardware_product_id, unique_code, category_model_format_id, 
+      is_custom_made, admin_id)
+    values (#{id,jdbcType=BIGINT}, #{createDateTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=TINYINT}, #{invalid,jdbcType=TINYINT}, #{orderItemId,jdbcType=BIGINT}, 
+      #{hardwareProductId,jdbcType=BIGINT}, #{uniqueCode,jdbcType=CHAR}, #{categoryModelFormatId,jdbcType=BIGINT}, 
+      #{isCustomMade,jdbcType=TINYINT}, #{adminId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ibaixiong.entity.MallOrderItemHardwareRelation" useGeneratedKeys="true" keyProperty="id">
+    insert into tbl_mall_order_item_hardware_relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="createDateTime != null" >
+        create_date_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="invalid != null" >
+        invalid,
+      </if>
+      <if test="orderItemId != null" >
+        order_item_id,
+      </if>
+      <if test="hardwareProductId != null" >
+        hardware_product_id,
+      </if>
+      <if test="uniqueCode != null" >
+        unique_code,
+      </if>
+      <if test="categoryModelFormatId != null" >
+        category_model_format_id,
+      </if>
+      <if test="isCustomMade != null" >
+        is_custom_made,
+      </if>
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="createDateTime != null" >
+        #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="orderItemId != null" >
+        #{orderItemId,jdbcType=BIGINT},
+      </if>
+      <if test="hardwareProductId != null" >
+        #{hardwareProductId,jdbcType=BIGINT},
+      </if>
+      <if test="uniqueCode != null" >
+        #{uniqueCode,jdbcType=CHAR},
+      </if>
+      <if test="categoryModelFormatId != null" >
+        #{categoryModelFormatId,jdbcType=BIGINT},
+      </if>
+      <if test="isCustomMade != null" >
+        #{isCustomMade,jdbcType=TINYINT},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ibaixiong.entity.MallOrderItemHardwareRelation" >
+    update tbl_mall_order_item_hardware_relation
+    <set >
+      <if test="createDateTime != null" >
+        create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        invalid = #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="orderItemId != null" >
+        order_item_id = #{orderItemId,jdbcType=BIGINT},
+      </if>
+      <if test="hardwareProductId != null" >
+        hardware_product_id = #{hardwareProductId,jdbcType=BIGINT},
+      </if>
+      <if test="uniqueCode != null" >
+        unique_code = #{uniqueCode,jdbcType=CHAR},
+      </if>
+      <if test="categoryModelFormatId != null" >
+        category_model_format_id = #{categoryModelFormatId,jdbcType=BIGINT},
+      </if>
+      <if test="isCustomMade != null" >
+        is_custom_made = #{isCustomMade,jdbcType=TINYINT},
+      </if>
+      <if test="adminId != null" >
+        admin_id = #{adminId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ibaixiong.entity.MallOrderItemHardwareRelation" >
+    update tbl_mall_order_item_hardware_relation
+    set create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      invalid = #{invalid,jdbcType=TINYINT},
+      order_item_id = #{orderItemId,jdbcType=BIGINT},
+      hardware_product_id = #{hardwareProductId,jdbcType=BIGINT},
+      unique_code = #{uniqueCode,jdbcType=CHAR},
+      category_model_format_id = #{categoryModelFormatId,jdbcType=BIGINT},
+      is_custom_made = #{isCustomMade,jdbcType=TINYINT},
+      admin_id = #{adminId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

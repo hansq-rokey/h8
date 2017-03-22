@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ibaixiong.erp.dao.custom.MallCustomPicDao" >
+  <resultMap id="BaseResultMap" type="com.ibaixiong.entity.MallCustomPic" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date_time" property="createDateTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="invalid" property="invalid" jdbcType="TINYINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="size" property="size" jdbcType="INTEGER" />
+    <result column="width" property="width" jdbcType="INTEGER" />
+    <result column="heigth" property="heigth" jdbcType="REAL" />
+    <result column="model_format_id" property="modelFormatId" jdbcType="BIGINT" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="order_number" property="orderNumber" jdbcType="CHAR" />
+    <result column="pic_name" property="picName" jdbcType="CHAR" />
+    <result column="pic_suffx" property="picSuffx" jdbcType="CHAR" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_date_time, update_time, status, invalid, user_id, path, size, width, heigth, 
+    model_format_id, url, order_number, pic_name, pic_suffx, type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_mall_custom_pic
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <!-- 查询私人订制列表 -->
+  <resultMap id="CustomPicListMap" type="com.ibaixiong.entity.MallCustomPic" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date_time" property="createDateTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="invalid" property="invalid" jdbcType="TINYINT" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="size" property="size" jdbcType="INTEGER" />
+    <result column="width" property="width" jdbcType="INTEGER" />
+    <result column="heigth" property="heigth" jdbcType="REAL" />
+    <result column="model_format_id" property="modelFormatId" jdbcType="BIGINT" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="order_number" property="orderNumber" jdbcType="CHAR" />
+    <result column="pic_name" property="picName" jdbcType="CHAR" />
+    <result column="pic_suffx" property="picSuffx" jdbcType="CHAR" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <!-- <association property="user" javaType="com.ibaixiong.entity.User">
+    	<id column="user_id" property="id"/>
+    	<result column="user_name" property="userName" jdbcType="VARCHAR" />
+    	<result column="bx_num" property="bxNum" jdbcType="VARCHAR" />
+    	<result column="email" property="email" jdbcType="VARCHAR" />
+    	<result column="phone" property="phone" jdbcType="CHAR" />
+    </association>
+    <association property="format" javaType="com.ibaixiong.entity.MallBasicCategoryModelFormat">
+    	<id column="model_format_id" property="id"/>
+    	<result column="name" property="name" jdbcType="VARCHAR" />
+    </association> -->
+  </resultMap>
+   <select id="queryMallCustomPicByOrderNumber" resultMap="CustomPicListMap">
+    select 
+    	<include refid="Base_Column_List"/>
+    from tbl_mall_custom_pic
+    where order_number = #{orderNumber,jdbcType=CHAR}
+    	order by create_date_time desc
+  </select>
+  <select id="getMallCustomPicByOrderNumberAndType" resultMap="CustomPicListMap">
+    select 
+    	<include refid="Base_Column_List"/>
+    from tbl_mall_custom_pic
+    where order_number = #{orderNumber,jdbcType=CHAR} and type=#{type,jdbcType=TINYINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_mall_custom_pic
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ibaixiong.entity.MallCustomPic" >
+    insert into tbl_mall_custom_pic (id, create_date_time, update_time, 
+      status, invalid, user_id, 
+      path, size, width, 
+      heigth, model_format_id, url, 
+      order_number, pic_name, pic_suffx, 
+      type)
+    values (#{id,jdbcType=BIGINT}, #{createDateTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=TINYINT}, #{invalid,jdbcType=TINYINT}, #{userId,jdbcType=BIGINT}, 
+      #{path,jdbcType=VARCHAR}, #{size,jdbcType=INTEGER}, #{width,jdbcType=INTEGER}, 
+      #{heigth,jdbcType=REAL}, #{modelFormatId,jdbcType=BIGINT}, #{url,jdbcType=VARCHAR}, 
+      #{orderNumber,jdbcType=CHAR}, #{picName,jdbcType=CHAR}, #{picSuffx,jdbcType=CHAR}, 
+      #{type,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ibaixiong.entity.MallCustomPic" >
+    insert into tbl_mall_custom_pic
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createDateTime != null" >
+        create_date_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="invalid != null" >
+        invalid,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="path != null" >
+        path,
+      </if>
+      <if test="size != null" >
+        size,
+      </if>
+      <if test="width != null" >
+        width,
+      </if>
+      <if test="heigth != null" >
+        heigth,
+      </if>
+      <if test="modelFormatId != null" >
+        model_format_id,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+      <if test="picName != null" >
+        pic_name,
+      </if>
+      <if test="picSuffx != null" >
+        pic_suffx,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createDateTime != null" >
+        #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="path != null" >
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        #{size,jdbcType=INTEGER},
+      </if>
+      <if test="width != null" >
+        #{width,jdbcType=INTEGER},
+      </if>
+      <if test="heigth != null" >
+        #{heigth,jdbcType=REAL},
+      </if>
+      <if test="modelFormatId != null" >
+        #{modelFormatId,jdbcType=BIGINT},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=CHAR},
+      </if>
+      <if test="picName != null" >
+        #{picName,jdbcType=CHAR},
+      </if>
+      <if test="picSuffx != null" >
+        #{picSuffx,jdbcType=CHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ibaixiong.entity.MallCustomPic" >
+    update tbl_mall_custom_pic
+    <set >
+      <if test="createDateTime != null" >
+        create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        invalid = #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="path != null" >
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        size = #{size,jdbcType=INTEGER},
+      </if>
+      <if test="width != null" >
+        width = #{width,jdbcType=INTEGER},
+      </if>
+      <if test="heigth != null" >
+        heigth = #{heigth,jdbcType=REAL},
+      </if>
+      <if test="modelFormatId != null" >
+        model_format_id = #{modelFormatId,jdbcType=BIGINT},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=CHAR},
+      </if>
+      <if test="picName != null" >
+        pic_name = #{picName,jdbcType=CHAR},
+      </if>
+      <if test="picSuffx != null" >
+        pic_suffx = #{picSuffx,jdbcType=CHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ibaixiong.entity.MallCustomPic" >
+    update tbl_mall_custom_pic
+    set create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      invalid = #{invalid,jdbcType=TINYINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      path = #{path,jdbcType=VARCHAR},
+      size = #{size,jdbcType=INTEGER},
+      width = #{width,jdbcType=INTEGER},
+      heigth = #{heigth,jdbcType=REAL},
+      model_format_id = #{modelFormatId,jdbcType=BIGINT},
+      url = #{url,jdbcType=VARCHAR},
+      order_number = #{orderNumber,jdbcType=CHAR},
+      pic_name = #{picName,jdbcType=CHAR},
+      pic_suffx = #{picSuffx,jdbcType=CHAR},
+      type = #{type,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ibaixiong.erp.dao.storage.ErpSysStorageDao" >
+  <resultMap id="BaseResultMap" type="com.ibaixiong.entity.ErpSysStorage" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date_time" property="createDateTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="invalid" property="invalid" jdbcType="TINYINT" />
+    <result column="storage_name" property="storageName" jdbcType="VARCHAR" />
+    <result column="storage_code" property="storageCode" jdbcType="VARCHAR" />
+    <result column="storage_address" property="storageAddress" jdbcType="VARCHAR" />
+    <association column="admin_id" property="admin" select="com.ibaixiong.erp.dao.sys.SysAdminDao.selectByPrimaryKey"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_date_time, update_time, status, invalid, storage_name, storage_code, storage_address, 
+    admin_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_erp_sys_storage
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="getList" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_erp_sys_storage where invalid=0 order by create_date_time desc 
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_erp_sys_storage
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ibaixiong.entity.ErpSysStorage" >
+    insert into tbl_erp_sys_storage (id, create_date_time, update_time, 
+      status, invalid, storage_name, 
+      storage_code, storage_address, admin_id
+      )
+    values (#{id,jdbcType=BIGINT}, #{createDateTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=TINYINT}, #{invalid,jdbcType=TINYINT}, #{storageName,jdbcType=VARCHAR}, 
+      #{storageCode,jdbcType=VARCHAR}, #{storageAddress,jdbcType=VARCHAR}, #{adminId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ibaixiong.entity.ErpSysStorage" useGeneratedKeys="true" keyProperty="id">
+    insert into tbl_erp_sys_storage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="createDateTime != null" >
+        create_date_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="invalid != null" >
+        invalid,
+      </if>
+      <if test="storageName != null" >
+        storage_name,
+      </if>
+      <if test="storageCode != null" >
+        storage_code,
+      </if>
+      <if test="storageAddress != null" >
+        storage_address,
+      </if>
+      <if test="admin != null" >
+        admin_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="createDateTime != null" >
+        #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="storageName != null" >
+        #{storageName,jdbcType=VARCHAR},
+      </if>
+      <if test="storageCode != null" >
+        #{storageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="storageAddress != null" >
+        #{storageAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="admin != null" >
+        #{admin.id,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ibaixiong.entity.ErpSysStorage" >
+    update tbl_erp_sys_storage
+    <set >
+      <if test="createDateTime != null" >
+        create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        invalid = #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="storageName != null" >
+        storage_name = #{storageName,jdbcType=VARCHAR},
+      </if>
+      <if test="storageCode != null" >
+        storage_code = #{storageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="storageAddress != null" >
+        storage_address = #{storageAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="admin != null" >
+        admin_id = #{admin.id,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ibaixiong.entity.ErpSysStorage" >
+    update tbl_erp_sys_storage
+    set create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      invalid = #{invalid,jdbcType=TINYINT},
+      storage_name = #{storageName,jdbcType=VARCHAR},
+      storage_code = #{storageCode,jdbcType=VARCHAR},
+      storage_address = #{storageAddress,jdbcType=VARCHAR},
+      admin_id = #{adminId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd    
+                        http://www.springframework.org/schema/context    
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd    
+                        http://www.springframework.org/schema/mvc    
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+                        http://www.springframework.org/schema/tx
+                        http://www.springframework.org/schema/tx/spring-tx.xsd
+                        http://www.springframework.org/schema/aop
+                        http://www.springframework.org/schema/aop/spring-aop.xsd">
+	<!-- 自动扫描 -->
+	<!-- <context:component-scan base-package="com.ibaixiong" />  -->
+	<!-- 引入配置文件 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:*.properties</value>
+			</list>
+		</property>
+		<property name="fileEncoding" value="utf-8" />
+	</bean>
+	<bean id="dataSource" name="dataSource"
+          class="org.apache.tomcat.jdbc.pool.DataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="${db.url}" />
+        <property name="username" value="${db.username}" />
+        <property name="password" value="${db.password}" />
+        <property name="maxActive" value="${db.maxActive}" />
+        <property name="maxIdle" value="${db.maxIdle}" />
+        <property name="maxWait" value="${db.maxWait}" />
+        <property name="initialSize" value="${db.initialSize}" />
+        <property name="minIdle" value="${db.minIdle}" />
+        <property name="validationQuery" value="${db.validationQuery}" />
+        <property name="removeAbandoned" value="${db.removeAbandoned}" />
+        <property name="removeAbandonedTimeout" value="${db.removeAbandonedTimeout}" />
+        <property name="logAbandoned" value="${db.logAbandoned}" />
+        <property name="useDisposableConnectionFacade" value="false" />
+		<property name="testOnBorrow" value="${db.testOnBorrow}"></property>
+		<property name="testWhileIdle" value="${db.testWhileIdle}"></property>
+		<property name="timeBetweenEvictionRunsMillis" value="${db.timeBetweenEvictionRunsMillis}"></property>
+		<property name="numTestsPerEvictionRun" value="${db.numTestsPerEvictionRun}"></property>
+		<property name="minEvictableIdleTimeMillis" value="${db.minEvictableIdleTimeMillis}"></property>
+    </bean>
+
+	<!-- spring和MyBatis完美整合，不�?��mybatis的配置映射文�?-->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- 自动扫描mapping.xml文件 -->
+		<property name="mapperLocations" value="classpath:com/ibaixiong/erp/dao/mapping/**/*Mapper.xml"></property>
+		<property name="configLocation"
+			value="classpath:com/ibaixiong/erp/dao/mapping/Configuration.xml" />
+		<property name="typeAliasesPackage" value="com.ibaixiong.entity"/>
+		  <property name="plugins">
+		    <array>
+		      <bean class="com.github.pagehelper.PageHelper">
+		        <property name="properties">
+		          <value>
+		            dialect=mysql
+		            reasonable=true
+		          </value>
+		        </property>
+		      </bean>
+		    </array>
+		</property>
+	</bean>
+	<!-- DAO接口�?��包名，Spring会自动查找其下的�?-->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.ibaixiong.erp.dao" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+	</bean>
+	<!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<context:component-scan base-package="com.ibaixiong">
+		<context:exclude-filter type="regex" expression=".*Action$"/>
+	</context:component-scan>
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+	<import resource="dubbo.xml" />
+	<import resource="ActiveMQ.xml"/>
+</beans>  

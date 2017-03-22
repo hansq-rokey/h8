@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ibaixiong.erp.dao.sysset.ScanRecodDao">
+	<resultMap id="BaseResultMap" type="com.ibaixiong.entity.ScanRecod">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="unique_code" property="uniqueCode" jdbcType="VARCHAR" />
+		<result column="create_date_time" property="createDateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, unique_code, create_date_time, update_time, status
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_scan_recod
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+
+	<insert id="insert" parameterType="com.ibaixiong.entity.ScanRecod">
+		insert into tbl_scan_recod (id, unique_code, create_date_time,
+		update_time, status)
+		values (#{id,jdbcType=BIGINT}, #{uniqueCode,jdbcType=VARCHAR},
+		#{createDateTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT})
+	</insert>
+
+	<delete id="deleteByMacCode" parameterType="java.lang.String">
+		delete from tbl_scan_recod
+		where unique_code = #{macCode,jdbcType=VARCHAR}
+	</delete>
+
+</mapper>

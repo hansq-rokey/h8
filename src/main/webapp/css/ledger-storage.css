@@ -1,0 +1,38 @@
+table{
+	width: 100%;
+    border-collapse: collapse;
+    margin-top:13px;
+}
+table tr td{
+	border:1px solid #dfdfdf;
+    height:39px;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+table thead{
+	background:#fafafa;
+    color:#999999;
+}
+tbody{
+    color:#666;
+}
+tbody tr td{
+    height:40px;
+}
+.first{
+	margin-top: 45px;
+}
+.information{
+	border-left:4px solid #ff6200 ;
+	padding-left:10px ;
+}
+p{
+	margin-top: 10px;
+}
+.paragraph span{
+	margin-right: 20px;
+}
+.paragraph{
+	margin-top: 50px;
+}

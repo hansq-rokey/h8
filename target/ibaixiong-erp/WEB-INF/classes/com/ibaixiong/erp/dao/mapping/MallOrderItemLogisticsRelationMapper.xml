@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ibaixiong.erp.dao.storage.MallOrderItemLogisticsRelationDao" >
+  <resultMap id="BaseResultMap" type="com.ibaixiong.entity.MallOrderItemLogisticsRelation" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date_time" property="createDateTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="invalid" property="invalid" jdbcType="TINYINT" />
+    <result column="order_item_id" property="orderItemId" jdbcType="BIGINT" />
+    <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="category_model_format_id" property="categoryModelFormatId" jdbcType="BIGINT" />
+    <result column="logistics_id" property="logisticsId" jdbcType="BIGINT" />
+    <result column="express_number" property="expressNumber" jdbcType="VARCHAR" />
+    <result column="admin_id" property="adminId" jdbcType="BIGINT" />
+    <result column="send_num" property="sendNum" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_date_time, update_time, status, invalid, order_item_id, order_number, 
+    category_model_format_id, logistics_id, express_number, admin_id, send_num
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_mall_order_item_logistics_relation
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_mall_order_item_logistics_relation
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ibaixiong.entity.MallOrderItemLogisticsRelation" >
+    insert into tbl_mall_order_item_logistics_relation (id, create_date_time, update_time, 
+      status, invalid, order_item_id, 
+      order_number, category_model_format_id, logistics_id, 
+      express_number, admin_id, send_num
+      )
+    values (#{id,jdbcType=BIGINT}, #{createDateTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=TINYINT}, #{invalid,jdbcType=TINYINT}, #{orderItemId,jdbcType=BIGINT}, 
+      #{orderNumber,jdbcType=VARCHAR}, #{categoryModelFormatId,jdbcType=BIGINT}, #{logisticsId,jdbcType=BIGINT}, 
+      #{expressNumber,jdbcType=VARCHAR}, #{adminId,jdbcType=BIGINT}, #{sendNum,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ibaixiong.entity.MallOrderItemLogisticsRelation" useGeneratedKeys="true" keyProperty="id">
+    insert into tbl_mall_order_item_logistics_relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="createDateTime != null" >
+        create_date_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="invalid != null" >
+        invalid,
+      </if>
+      <if test="orderItemId != null" >
+        order_item_id,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+      <if test="categoryModelFormatId != null" >
+        category_model_format_id,
+      </if>
+      <if test="logisticsId != null" >
+        logistics_id,
+      </if>
+      <if test="expressNumber != null" >
+        express_number,
+      </if>
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="sendNum != null" >
+        send_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="createDateTime != null" >
+        #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="orderItemId != null" >
+        #{orderItemId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryModelFormatId != null" >
+        #{categoryModelFormatId,jdbcType=BIGINT},
+      </if>
+      <if test="logisticsId != null" >
+        #{logisticsId,jdbcType=BIGINT},
+      </if>
+      <if test="expressNumber != null" >
+        #{expressNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=BIGINT},
+      </if>
+      <if test="sendNum != null" >
+        #{sendNum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ibaixiong.entity.MallOrderItemLogisticsRelation" >
+    update tbl_mall_order_item_logistics_relation
+    <set >
+      <if test="createDateTime != null" >
+        create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        invalid = #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="orderItemId != null" >
+        order_item_id = #{orderItemId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryModelFormatId != null" >
+        category_model_format_id = #{categoryModelFormatId,jdbcType=BIGINT},
+      </if>
+      <if test="logisticsId != null" >
+        logistics_id = #{logisticsId,jdbcType=BIGINT},
+      </if>
+      <if test="expressNumber != null" >
+        express_number = #{expressNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null" >
+        admin_id = #{adminId,jdbcType=BIGINT},
+      </if>
+      <if test="sendNum != null" >
+        send_num = #{sendNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ibaixiong.entity.MallOrderItemLogisticsRelation" >
+    update tbl_mall_order_item_logistics_relation
+    set create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      invalid = #{invalid,jdbcType=TINYINT},
+      order_item_id = #{orderItemId,jdbcType=BIGINT},
+      order_number = #{orderNumber,jdbcType=VARCHAR},
+      category_model_format_id = #{categoryModelFormatId,jdbcType=BIGINT},
+      logistics_id = #{logisticsId,jdbcType=BIGINT},
+      express_number = #{expressNumber,jdbcType=VARCHAR},
+      admin_id = #{adminId,jdbcType=BIGINT},
+      send_num = #{sendNum,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ibaixiong.erp.dao.sysset.ErpUserPermissionRelationDao">
+	<resultMap id="BaseResultMap"
+		type="com.ibaixiong.entity.ErpUserPermissionRelation">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="create_date_time" property="createDateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+		<result column="invalid" property="invalid" jdbcType="TINYINT" />
+		<result column="category_model_format_code" property="categoryModelFormatCode"
+			jdbcType="CHAR" />
+			
+		<result column="category_id" property="categoryId" jdbcType="BIGINT" />
+    	<result column="category_model_id" property="categoryModelId" jdbcType="BIGINT" />
+    	<result column="category_model_format_id" property="categoryModelFormatId" jdbcType="BIGINT" />
+    	
+		<association column="admin_id" property="admin"
+			select="com.ibaixiong.erp.dao.sys.SysAdminDao.selectByPrimaryKey" />
+		<association column="purchase_order_id" property="purchaseOrder"
+			select="com.ibaixiong.erp.dao.purchase.ErpPurchaseOrderDao.selectByPrimaryKey" />
+		<association column="batch_id" property="erpBatch"
+			select="com.ibaixiong.erp.dao.sysset.ErpBatchDao.selectByPrimaryKey" />
+		<association column="batch_detail_id" property="batchDetail"
+			select="com.ibaixiong.erp.dao.sysset.ErpBatchDetailsDao.selectByPrimaryKey" />
+	</resultMap>
+	<resultMap id="selectByAdminIdAndFormatIdResultMap"
+		type="com.ibaixiong.entity.ErpUserPermissionRelation">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="create_date_time" property="createDateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<association column="batch_detail_id" property="batchDetail"
+			select="com.ibaixiong.erp.dao.sysset.ErpBatchDetailsDao.selectBaseInfoByPrimaryKey" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, create_date_time, update_time, status, invalid,
+		admin_id,
+		category_model_format_id,
+		category_model_format_code,
+		purchase_order_id,
+		batch_id,batch_detail_id,category_id,category_model_id
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_erp_user_permission_relation
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="selectByAdminId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_erp_user_permission_relation
+		where admin_id =
+		#{adminId,jdbcType=BIGINT}
+		<if test="invalid != null">
+			and
+			invalid = #{invalid,jdbcType=TINYINT}
+		</if>
+	</select>
+	<select id="selectCategoryModelIdByAdminId" resultType="java.lang.Long">
+		select
+		category_model_id from tbl_erp_user_permission_relation where admin_id
+		= #{adminId,jdbcType=BIGINT} and
+		invalid = #{invalid,jdbcType=TINYINT}
+	</select>
+	
+	<select id="selectCategoryModelId" resultType="java.lang.Long">
+		select
+		category_model_id from tbl_erp_user_permission_relation 
+		where invalid = #{invalid,jdbcType=TINYINT}
+	</select>
+	
+	<select id="selectCategoryModelFormatIdByAdminId" resultType="java.lang.Long">
+		select
+		category_model_format_id from tbl_erp_user_permission_relation
+		where admin_id
+		= #{adminId,jdbcType=BIGINT} and
+		category_model_id =
+		#{categoryModelId,jdbcType=BIGINT} and
+		invalid =
+		#{invalid,jdbcType=TINYINT}
+	</select>
+	
+	<select id="selectCategoryModelFormatId" resultType="java.lang.Long">
+		select
+		category_model_format_id from tbl_erp_user_permission_relation
+		where 
+		category_model_id =
+		#{categoryModelId,jdbcType=BIGINT} and
+		invalid =
+		#{invalid,jdbcType=TINYINT}
+	</select>
+	
+	<select id="selectByAdminIdAndFormatId" resultMap="selectByAdminIdAndFormatIdResultMap">
+		select
+		id, create_date_time, update_time,batch_detail_id
+		from tbl_erp_user_permission_relation
+		where admin_id =
+		#{adminId,jdbcType=BIGINT} and
+		category_model_format_id = #{formatId,jdbcType=BIGINT} and
+		invalid = #{invalid,jdbcType=TINYINT}  
+	</select>
+	
+	<select id="selectByFormatId" resultMap="selectByAdminIdAndFormatIdResultMap">
+		select
+		id, create_date_time, update_time,batch_detail_id
+		from tbl_erp_user_permission_relation
+		where 
+		category_model_format_id = #{formatId,jdbcType=BIGINT} and
+		invalid = #{invalid,jdbcType=TINYINT}  
+	</select>
+	<select id="selectByPurchaseOrderId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_erp_user_permission_relation
+		where purchase_order_id =
+		#{orderId,jdbcType=BIGINT}
+		and invalid = 0
+	</select>
+	<select id="getCheck" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_erp_user_permission_relation
+		where batch_detail_id =
+		#{batchId,jdbcType=BIGINT} and admin_id = #{adminId,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		tbl_erp_user_permission_relation
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<update id="updateInvalid">
+		update tbl_erp_user_permission_relation set invalid =
+		#{invalid,jdbcType=TINYINT}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<insert id="insert" parameterType="com.ibaixiong.entity.ErpUserPermissionRelation">
+		insert into
+		tbl_erp_user_permission_relation (id, create_date_time,
+		update_time,
+		status, invalid, admin_id,
+		category_model_format_id,
+		category_model_format_code,
+		purchase_order_id,
+		batch_id,batch_detail_id)
+		values
+		(#{id,jdbcType=BIGINT},
+		#{createDateTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP},
+		#{status,jdbcType=TINYINT},
+		#{invalid,jdbcType=TINYINT}, #{adminId,jdbcType=BIGINT},
+		#{categoryModelFormatId,jdbcType=BIGINT},
+		#{categoryModelFormatCode,jdbcType=CHAR},
+		#{purchaseOrderId,jdbcType=BIGINT},
+		#{batch.id,jdbcType=BIGINT},#{batchDetail.id,jdbcType=BIGINT})
+	</insert>
+	<insert id="insertSelective" parameterType="com.ibaixiong.entity.ErpUserPermissionRelation"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into tbl_erp_user_permission_relation
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="createDateTime != null">
+				create_date_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="invalid != null">
+				invalid,
+			</if>
+			<if test="admin != null">
+				admin_id,
+			</if>
+			<if test="categoryModelFormat != null">
+				category_model_format_id,
+			</if>
+			<if test="categoryModelFormatCode != null">
+				category_model_format_code,
+			</if>
+			<if test="purchaseOrder != null">
+				purchase_order_id,
+			</if>
+			<if test="erpBatch != null">
+				batch_id,
+			</if>
+			<if test="batchDetail != null">
+				batch_detail_id,
+			</if>
+			<if test="category != null">
+				category_id,
+			</if>
+			<if test="categoryModel != null">
+				category_model_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="createDateTime != null">
+				#{createDateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=TINYINT},
+			</if>
+			<if test="invalid != null">
+				#{invalid,jdbcType=TINYINT},
+			</if>
+			<if test="admin != null">
+				#{admin.id,jdbcType=BIGINT},
+			</if>
+			<if test="categoryModelFormat != null">
+				#{categoryModelFormat.id,jdbcType=BIGINT},
+			</if>
+			<if test="categoryModelFormatCode != null">
+				#{categoryModelFormatCode,jdbcType=CHAR},
+			</if>
+			<if test="purchaseOrder != null">
+				#{purchaseOrder.id,jdbcType=BIGINT},
+			</if>
+			<if test="erpBatch != null">
+				#{erpBatch.id,jdbcType=BIGINT},
+			</if>
+			<if test="batchDetail != null">
+				#{batchDetail.id,jdbcType=BIGINT},
+			</if>
+			<if test="category != null">
+				#{category.id,jdbcType=BIGINT},
+			</if>
+			<if test="categoryModel != null">
+				#{categoryModel.id,jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.ibaixiong.entity.ErpUserPermissionRelation">
+		update tbl_erp_user_permission_relation
+		<set>
+			<if test="createDateTime != null">
+				create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=TINYINT},
+			</if>
+			<if test="invalid != null">
+				invalid = #{invalid,jdbcType=TINYINT},
+			</if>
+			<if test="adminId != null">
+				admin_id = #{adminId,jdbcType=BIGINT},
+			</if>
+			<if test="categoryModelFormatId != null">
+				category_model_format_id =
+				#{categoryModelFormatId,jdbcType=BIGINT},
+			</if>
+			<if test="categoryModelFormatCode != null">
+				category_model_format_code =
+				#{categoryModelFormatCode,jdbcType=CHAR},
+			</if>
+			<if test="purchaseOrderId != null">
+				purchase_order_id = #{purchaseOrderId,jdbcType=BIGINT},
+			</if>
+			<if test="batch != null">
+				batch = #{batch,jdbcType=CHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.ibaixiong.entity.ErpUserPermissionRelation">
+		update
+		tbl_erp_user_permission_relation
+		set create_date_time =
+		#{createDateTime,jdbcType=TIMESTAMP},
+		update_time =
+		#{updateTime,jdbcType=TIMESTAMP},
+		status = #{status,jdbcType=TINYINT},
+		invalid = #{invalid,jdbcType=TINYINT},
+		admin_id =
+		#{adminId,jdbcType=BIGINT},
+		category_model_format_id =
+		#{categoryModelFormatId,jdbcType=BIGINT},
+		category_model_format_code =
+		#{categoryModelFormatCode,jdbcType=CHAR},
+		purchase_order_id =
+		#{purchaseOrderId,jdbcType=BIGINT},
+		batch = #{batch,jdbcType=CHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

@@ -1,0 +1,62 @@
+.storagetable{
+	width: 100%;
+    border-collapse: collapse;
+    margin-top:13px;
+}
+.storagetable tr td{
+	border:1px solid #dfdfdf;
+    height:39px;
+    text-align: center;
+    padding-left:5px;
+    padding-right: 5px;
+}
+.storagetable thead{
+	background:#fafafa;
+    color:#999999;
+}
+.storagetable tbody{
+    color:#666;
+}
+.storagetable tbody tr td{
+    height:40px;
+}
+.search{
+	margin-left: 20px;
+	background:#ff6200;
+	color: white;
+	width: 100px;
+	height: 30px;
+}
+.partlist{
+    position: relative;
+    border-bottom:1px solid #dcdcdc;
+    width: 100%;
+    height:40px;
+    margin-top: 15px;
+}
+.partlist li{
+    width:100px;
+    height:40px;
+    float: left;
+}
+.partlist li span.switch{
+    width: 85px;
+    display: inline-block;
+    height:40px;
+    line-height:40px;
+    margin:0 7px;
+    text-align: center;
+    cursor: pointer;
+}
+.partlist li span.switched{
+    border-bottom:2px solid #03a9f4;
+}
+.inforbox{
+    position: absolute;
+    top:40px;
+    left:0;
+    display: none;
+}
+.selectinforbox{
+    display: block;
+}

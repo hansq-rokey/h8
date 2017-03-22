@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link href="../plug/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../css/pubstyle.css" rel="stylesheet" type="text/css">
+    <link href="../css/order-manage.css" rel="stylesheet" type="text/css">
+    <script src="../plug/jQuery/jquery-1.8.3.min.js" type="text/javascript" ></script>
+    <script src="../js/public.js" type="text/javascript" ></script>
+    <script src="../js/aftersalemanage.js" type="text/javascript" ></script>
+    <script src="../plug/adddatetime.js" type="text/javascript" ></script>
+    <title>订单管理</title>
+</head>
+<body>
+<header class="pubtop">
+    <img src="../images/userimg.png" class="userimg fl">
+    <span class="username fl">杀阡陌<i class="arrow arrowdown"></i> </span>
+</header>
+<aside class="publeftnav">
+    <ul class="publeftnavul">
+        <li class="firstnavli">
+            <a href="#"> <span class="firstnav"><i class="marks prodicon"></i>商品管理<i class="arrow arrow-right"></i></span></a>
+            <ul>
+                <a href="#"><li class="secondnavli"><span class="secondnav">商品列表</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">新增商品</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">类目设置</span></li></a>
+            </ul>
+        </li>
+        <li class="firstnavli">
+            <a href="#"> <span class="firstnav"><i class="marks equipicon"></i>设备管理<i class="arrow arrow-right"></i></span></a>
+            <ul>
+                <a href="#"><li class="secondnavli"><span class="secondnav">商品列表</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">新增商品</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">类目设置</span></li></a>
+            </ul> 
+        </li>
+        <li class="firstnavli">
+            <a href="#"> <span class="firstnav"><i class="marks finanicon"></i>财务管理<i class="arrow arrow-right"></i></span></a>
+            <ul>
+                <a href="#"><li class="secondnavli"><span class="secondnav">商品列表</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">新增商品</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">类目设置</span></li></a>
+            </ul>
+        </li>
+        <li class="firstnavli">
+            <a href="#"> <span class="firstnav"><i class="marks storageicon"></i>仓储管理<i class="arrow arrow-right"></i></span></a>
+            <ul>
+                <a href="#"><li class="secondnavli"><span class="secondnav">商品列表</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">新增商品</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">类目设置</span></li></a>
+            </ul>
+        </li>
+        <li class="firstnavli">
+            <a href="#"> <span class="firstnav"><i class="marks bbsicon"></i>社区管理<i class="arrow arrow-right"></i></span></a>
+            <ul>
+                <a href="#"><li class="secondnavli"><span class="secondnav">商品列表</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">新增商品</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">类目设置</span></li></a>
+            </ul>
+        </li>
+        <li class="firstnavli">
+            <a href="#"> <span class="firstnav"><i class="marks usericon"></i>用户管理<i class="arrow arrow-right"></i></span></a>
+            <ul>
+                <a href="#"><li class="secondnavli"><span class="secondnav">商品列表</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">新增商品</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">类目设置</span></li></a>
+            </ul>
+        </li>
+        <li class="firstnavli">
+            <a href="#"> <span class="firstnav"><i class="marks saleaftericon"></i>售后管理<i class="arrow arrow-right"></i></span></a>
+            <ul>
+                <a href="#"><li class="secondnavli"><span class="secondnav">商品列表</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">新增商品</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">类目设置</span></li></a>
+            </ul>
+        </li>
+        <li class="firstnavli">
+            <a href="#"> <span class="firstnav"><i class="marks systemicon"></i>系统管理<i class="arrow arrow-right"></i></span></a>
+            <ul>
+                <a href="#"><li class="secondnavli"><span class="secondnav">商品列表</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">新增商品</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">类目设置</span></li></a>
+            </ul>
+        </li>
+        <li class="firstnavli">
+            <a href="#"> <span class="firstnav"><i class="marks customericon"></i>客诉管理<i class="arrow arrow-right"></i></span></a>
+            <ul>
+                <a href="#"><li class="secondnavli"><span class="secondnav">商品列表</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">新增商品</span></li></a>
+                <a href="#"><li class="secondnavli"><span class="secondnav">类目设置</span></li></a>
+            </ul>
+        </li>
+    </ul>
+</aside>
+<div class="rightbox">
+    <section>
+		<h3 class="title currenttitle">新增商品<i class="closeicon"></i> </h3>
+        <div class="content">
+          	<input type="text" class="packing-code
+" placeholder="用户名或订单号">
+            <input type="text" class="strat-time datetimepicker startdata" placeholder="开始时间" onclick="SelectDate(this,'yyyy-MM-dd')">
+            <span>至</span>
+           	<input type="text" class="end time datetimepicker startdata" placeholder="结束时间" onclick="SelectDate(this,'yyyy-MM-dd')">
+            <input type="button" class="search" value="搜索">
+        </div>	
+        <ul class="partlist">
+            <li>
+                <span class="switch switched">全部</span>
+                <div class="inforbox selectinforbox">
+                	<table class="ordermanagetable">
+                		<thead>
+                			<tr>
+                				<td>订单号</td>
+                				<td>产品名称</td>
+                				<td>规格</td>
+                				<td>数量</td>
+                				<td>用户名</td>
+                				<td>白熊号</td>
+                				<td>下单日期</td>
+                				<td>邮寄地址</td>
+                				<td>订单状态</td>
+                				<td>操作</td>
+                			</tr>
+                		</thead>
+                		<tbody>
+                			<tr>
+                				<td>123456789123456</td>
+                				<td>光魔方MX5</td>
+                				<td>超薄型蓝色</td>
+                				<td>x2</td>
+                				<td>123456789@ibaixiong.com</td>
+                				<td>12345678</td>
+                				<td>2015/9/20  05:30</td>
+                				<td>浙江省杭州市西湖区文二路391号西湖国际大厦702室</td>
+                				<td>配货中</td>
+                				<td>
+                					<a href="#" class="link deliver-goods">发货</a>
+                					<a href="#" class="link">详情订单</a>
+                				</td>
+                			</tr>
+                			<tr>
+                				<td td rowspan="2">123456789123456</td>
+                				<td>光魔方MX4</td>
+                				<td>超薄型蓝色</td>
+                				<td>x2</td>
+                				<td rowspan="2">123456789@ibaixiong.com</td>
+                				<td rowspan="2">12345678</td>
+                				<td rowspan="2">2015/9/20  05:30</td>
+                				<td rowspan="2">浙江省杭州市西湖区文二路391号西湖国际大厦702室</td>
+                				<td rowspan="2">已付款</td>
+                				<td rowspan="2">
+                					<a href="#" class="link distribution">确认配货</a>
+                					<a href="#" class="link">详情订单</a>
+                				</td>
+                			</tr>
+                			<tr>
+                				<td>光魔方MX5</td>
+                				<td>超薄型蓝色</td>
+                				<td>x2</td>
+                			</tr>
+                			<tr>
+                				<td>123456789123456</td>
+                				<td>光魔方MX5</td>
+                				<td>超薄型蓝色</td>
+                				<td>x2</td>
+                				<td>123456789@ibaixiong.com</td>
+                				<td>12345678</td>
+                				<td>2015/9/20  05:30</td>
+                				<td>浙江省杭州市西湖区文二路391号西湖国际大厦702室</td>
+                				<td>已付款</td>
+                				<td>
+                					<a href="#" class="link">查看物流</a>
+                					<a href="#" class="link">详情订单</a>
+                				</td>
+                			</tr>
+                		</tbody>
+                	</table>
+                </div>
+            </li>
+            <li>
+                <span class="switch">待发货</span>
+                <div class="inforbox selectinforbox">
+                </div>
+            </li>
+            <li>
+                <span class="switch">配货中</span>
+                <div class="inforbox selectinforbox">
+                </div>
+            </li>
+            <li>
+                <span class="switch">已发货</span>
+                <div class="inforbox selectinforbox">
+                </div>
+            </li>
+            <li>
+                <span class="switch">已签收</span>
+                <div class="inforbox selectinforbox">
+                </div>
+            </li>
+        </ul>
+    </section>
+</div>
+<div class="pop delreasonpop" style="display: none;">
+	<div class="popbg"></div>
+    <div class="layel">
+        <h3 class="poptitle">确认配货<i class="closeicon"></i> </h3>
+        <img src="../images/question.png" class="question">
+        <p class="prompt
+">确认配货后用户将收到配货中的反馈信息，是否确认？</p>
+        <div class="row tc">
+            <input type="button" value="确定" class="ok">
+            <input type="button" value="取消" class="no">
+        </div>
+    </div>
+</div>
+<div class="pop2 delreasonpop" style="display: none;">
+	<div class="popbg"></div>
+    <div class="layel">
+        <h3 class="poptitle">发货<i class="closeicon"></i> </h3>
+        <div class="bigbox">
+        	<div class="left">
+           	<img src="../images/product.jpg" class="product">
+       		</div>
+        	<div class="right">
+        		<p>光魔方MX5  1500瓦  黑色</p>
+        		<input type="text" placeholder="唯一码"/>
+        	</div>
+        </div>
+        <div class="bigbox">
+        	<div class="left">
+           	<img src="../images/product.jpg" class="product">
+       		</div>
+        	<div class="right">
+        		<p>光魔方MX5  1500瓦  黑色</p>
+        		<input type="text" placeholder="唯一码"/>
+        	</div>
+        </div>
+        <span class="selectinput">
+            <span class="selectvalue">顺丰</span>
+            <i class="arrow arrowright"></i>
+                <ul class="option">
+                    <li>圆通</li>
+                    <li>中通</li>
+                </ul>
+        </span>
+        <input type="text" placeholder="快递单号"/>
+        <div class="row tc">
+            <input type="button" value="确认发货" class="confirm">
+            <input type="button" value="取消" class="cancel">
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(document).on('click','.distribution',function(){
+			$('.pop').show();
+		})
+		$(document).on('click','.deliver-goods',function(){
+			$('.pop2').show();
+		})
+	})
+</script>
+</body>
+</html>

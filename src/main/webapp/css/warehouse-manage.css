@@ -1,0 +1,26 @@
+.searchbtn{
+    width: 100px;
+    height:30px;
+    background:#ff6200;
+    color:#fff;
+    margin-left:15px;
+}
+.handleloglist{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top:13px;
+}
+.handleloglist thead{
+    background:#fafafa;
+    color:#999999;
+}
+.handleloglist tbody{
+    color:#666;
+}
+.handleloglist tr td{
+    border:1px solid #dfdfdf;
+    height:40px;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}

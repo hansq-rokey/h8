@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ibaixiong.erp.dao.storage.ErpPutStorageDao" >
+  <resultMap id="BaseResultMap" type="com.ibaixiong.entity.ErpPutStorage" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date_time" property="createDateTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="invalid" property="invalid" jdbcType="TINYINT" />
+    <result column="hardware_product_id" property="hardwareProductId" jdbcType="BIGINT" />
+    <result column="admin_id" property="adminId" jdbcType="BIGINT" />
+    <result column="unique_code" property="uniqueCode" jdbcType="VARCHAR" />
+    <result column="mfg_date" property="mfgDate" jdbcType="TIMESTAMP" />
+    <result column="put_storage_count_id" property="putStorageCountId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_date_time, update_time, status, invalid, hardware_product_id, admin_id, 
+    unique_code, mfg_date, put_storage_count_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_erp_put_storage
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="queryErpPutStoragesByUniqueCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_erp_put_storage
+    where unique_code = #{code,jdbcType=VARCHAR}
+  </select>
+  <!-- 查询详细入库信息  start-->
+  <select id="queryErpPutStorages" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_erp_put_storage
+    <where>
+    	<if test="invalid!=null">
+    		invalid = #{invalid,jdbcType=TINYINT}
+    	</if>
+    	<if test="adminId!=null">
+    		and admin_id = #{adminId,jdbcType=BIGINT}
+    	</if>
+    	<if test="storageCountId!=null">
+    		and put_storage_count_id = #{storageCountId,jdbcType=BIGINT}
+    	</if>
+    </where>
+  </select>
+  <!-- end -->
+  
+   <!-- 根据硬件产品ID查询入库记录  start-->
+     <resultMap id="QueryErpPutStoragesByHardwareIdResultMap" type="com.ibaixiong.entity.ErpPutStorage" >
+	    <id column="id" property="id" jdbcType="BIGINT" />
+	    <result column="create_date_time" property="createDateTime" jdbcType="TIMESTAMP" />
+	    <result column="invalid" property="invalid" jdbcType="TINYINT" />
+	    <result column="hardware_product_id" property="hardwareProductId" jdbcType="BIGINT" />
+	    <result column="admin_id" property="adminId" jdbcType="BIGINT" />
+	    <result column="unique_code" property="uniqueCode" jdbcType="VARCHAR" />
+	    <result column="mfg_date" property="mfgDate" jdbcType="TIMESTAMP" />
+	    <result column="put_storage_count_id" property="putStorageCountId" jdbcType="BIGINT" />
+	    <result column="format_name" property="formatName" jdbcType="VARCHAR" />
+	    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+	  </resultMap>
+  	  <select id="queryErpPutStoragesByHardwareId" resultMap="QueryErpPutStoragesByHardwareIdResultMap">
+	  	SELECT
+			ps.create_date_time,
+			ps.mfg_date,
+			ps.unique_code,
+			cmf.`name` AS format_name,
+			bcm.`name` AS product_name
+		FROM
+			tbl_erp_put_storage ps
+		LEFT JOIN tbl_erp_hardware_product hp ON hp.id=ps.hardware_product_id
+		LEFT JOIN tbl_mall_basic_category_model_format cmf ON hp.category_model_format_id = cmf.id
+		LEFT JOIN tbl_mall_basic_category_model bcm ON bcm.id = cmf.category_model_id
+		<where>
+	    	<if test="invalid!=null">
+	    		ps.invalid = #{invalid,jdbcType=TINYINT}
+	    	</if>
+	    	<if test="hardwareId!=null">
+	    		and ps.hardware_product_id = #{hardwareId,jdbcType=BIGINT}
+	    	</if>
+	    </where>
+  </select>
+	  <!-- end -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_erp_put_storage
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ibaixiong.entity.ErpPutStorage" >
+    insert into tbl_erp_put_storage (id, create_date_time, update_time, 
+      status, invalid, hardware_product_id, 
+      admin_id, unique_code, mfg_date, 
+      put_storage_count_id)
+    values (#{id,jdbcType=BIGINT}, #{createDateTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=TINYINT}, #{invalid,jdbcType=TINYINT}, #{hardwareProductId,jdbcType=BIGINT}, 
+      #{adminId,jdbcType=BIGINT}, #{uniqueCode,jdbcType=VARCHAR}, #{mfgDate,jdbcType=TIMESTAMP}, 
+      #{putStorageCountId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ibaixiong.entity.ErpPutStorage" useGeneratedKeys="true" keyProperty="id">
+    insert into tbl_erp_put_storage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="createDateTime != null" >
+        create_date_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="invalid != null" >
+        invalid,
+      </if>
+      <if test="hardwareProductId != null" >
+        hardware_product_id,
+      </if>
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="uniqueCode != null" >
+        unique_code,
+      </if>
+      <if test="mfgDate != null" >
+        mfg_date,
+      </if>
+      <if test="putStorageCountId != null" >
+        put_storage_count_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="createDateTime != null" >
+        #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="hardwareProductId != null" >
+        #{hardwareProductId,jdbcType=BIGINT},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=BIGINT},
+      </if>
+      <if test="uniqueCode != null" >
+        #{uniqueCode,jdbcType=VARCHAR},
+      </if>
+      <if test="mfgDate != null" >
+        #{mfgDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="putStorageCountId != null" >
+        #{putStorageCountId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ibaixiong.entity.ErpPutStorage" >
+    update tbl_erp_put_storage
+    <set >
+      <if test="createDateTime != null" >
+        create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        invalid = #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="hardwareProductId != null" >
+        hardware_product_id = #{hardwareProductId,jdbcType=BIGINT},
+      </if>
+      <if test="adminId != null" >
+        admin_id = #{adminId,jdbcType=BIGINT},
+      </if>
+      <if test="uniqueCode != null" >
+        unique_code = #{uniqueCode,jdbcType=VARCHAR},
+      </if>
+      <if test="mfgDate != null" >
+        mfg_date = #{mfgDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="putStorageCountId != null" >
+        put_storage_count_id = #{putStorageCountId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ibaixiong.entity.ErpPutStorage" >
+    update tbl_erp_put_storage
+    set create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      invalid = #{invalid,jdbcType=TINYINT},
+      hardware_product_id = #{hardwareProductId,jdbcType=BIGINT},
+      admin_id = #{adminId,jdbcType=BIGINT},
+      unique_code = #{uniqueCode,jdbcType=VARCHAR},
+      mfg_date = #{mfgDate,jdbcType=TIMESTAMP},
+      put_storage_count_id = #{putStorageCountId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

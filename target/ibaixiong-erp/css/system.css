@@ -1,0 +1,238 @@
+#Org_Manage{
+    width: 100%;
+    margin-bottom: 0px;
+}
+.Org_Tree_left{
+    width: 30%;
+    float: left;
+    padding-top: 7px;
+    margin-top: 30px;
+    margin-left: 2px;
+    background: #e1eafe;
+     height: 500px;
+    overflow: scroll;
+}
+.Org_Tree{
+    background: #e1eafe;
+     height: 600px;
+    overflow: scroll;
+}
+
+.Org_Tree li{
+    list-style: none;
+}
+
+.Org_Tree ul{
+    margin: 0px;
+}
+.Org_Tree ul li{
+    display: block;
+    margin-top: 3px;
+    *margin-top: -3px;
+    _margin-top: -3px;
+}
+.org_tree_wordstyle{
+    margin: 0;
+    padding: 0;
+    clear: both;
+}
+.org_tree_wordstyle li{
+    list-style: none;
+    display: block;
+    float: left;
+    margin: 0 ;
+    padding: 0;
+    margin-left: 7px;
+    vertical-align: middle;
+    margin-right: 2px;
+}
+.org_tree_wordstyle li input[type='checkbox']
+{
+     display: block;
+     width: 14px;
+     height: 14px;
+     margin-top: -2px;  
+}
+.org_tree_wordstyle li input[type='checkbox']
+{
+     *display: block;
+     *width: 14px;
+     *height: 14px;
+     *margin-top: -2px;
+}
+.org_tree_wordstyle li img{
+    *display: block;
+    _display: block;
+}
+.clear{
+    clear: both;
+}
+.org_tree_name{
+    border: 1px solid #065270;
+    width: 65px;
+    height: 90px;
+    background: #d4ddf3;
+}
+.org_tree_name a{
+    display: block;
+    height:20px;
+    color: #000000;
+    padding-top: 8px;
+    text-align: center;
+}
+.org_tree_name a:hover{
+    text-decoration: underline;
+    color: blue;
+}
+#Org_List{
+    margin-top: 8px;
+    margin-left: -5px;
+    width:68%;
+    float: left;
+}
+.Org_padding1{
+    padding-left: 15px;
+}
+.Org_padding2{
+    padding-left: 30px;
+}
+/******  角色管理  *****/
+#Roles_Tree{
+    width: 100%;
+    float: left;
+    padding-top: 7px;
+    margin-left: 2px;
+    background: #e1eafe;
+    height: 500px;
+    overflow: scroll;
+}
+#Roles_Tree li{
+    list-style: none;
+}
+
+#Roles_Tree ul{
+    margin: 0px;
+}
+#Roles_Tree ul li{
+    display: block;
+    margin-top: 3px;
+    *margin-top: -3px;
+    _margin-top: -3px;
+}
+
+/******  权限名称  *****/
+#Quanx_Tree{
+    width: 100%;
+    float: left;
+    padding-top: 7px;
+    margin-left: 2px;
+    background: #e1eafe;
+    height: 500px;
+    overflow: scroll;
+}
+#Quanx_Tree li{
+    list-style: none;
+}
+
+#Quanx_Tree ul{
+    margin: 0px;
+}
+#Quanx_Tree ul li{
+    display: block;
+    margin-top: 3px;
+    *margin-top: -3px;
+    _margin-top: -3px;
+}
+.liheight{
+    height: 20px;
+    *height: 25px;
+}
+.Role_titlebg{
+    height: 22px;
+    background: url(../images/index/rolesTreebg_03.png) repeat-x;
+    border: 1px solid #d1d4da;
+    margin-top: 2px;
+    padding-top: 7px;
+    padding-left: 5px;
+    width: 98%;
+    margin-left: 2px;
+}
+.Org_input
+{
+    width: 300px;
+    border: 1px solid #b8bdc0;
+    height: 22px;
+}
+/********树形结构*******/
+.Tree_wrap{
+margin-left:0px;
+}
+.Tree_win_content{
+    border: 1px solid #0580ad;
+    background: #d6eaf6;
+}
+.Tree_list{
+    width: 100%;
+    float: left;    
+    margin-left: 2px;
+    background: #e1eafe;
+    height: 500px;
+    overflow: scroll;
+}
+.Tree_list li{
+    list-style: none;
+    height:20px;
+}
+
+.Tree_list ul{
+    margin: 0px;
+}
+.Tree_list ul li{
+    display: block;
+    margin-top: 3px;
+    *margin-top: -3px;
+    _margin-top: -3px;
+
+}
+.tree_wordstyle{
+    margin: 0;
+    padding: 0;
+    clear: both;
+}
+.tree_wordstyle li{
+    list-style: none;
+    display:inline;
+    white-space:nowrap;
+    float: left;
+    margin: 0 ;
+    text-overflow:ellipsis; 
+    max-width:400px;
+    padding: 0;
+    margin-left: 7px;
+    vertical-align: middle;
+    margin-right: 2px;
+    
+}
+.tree_wordstyle li input[type='checkbox']
+{
+    display: block;
+    width: 14px;
+    height: 14px;
+    margin-top: -2px \9;
+    margin-top: 3px;
+    margin-left: 8px;
+}
+.tree_wordstyle li img{
+    display: block;
+    margin-top: 6px;
+}
+.Tree_list ul{
+margin:0;
+padding:0;
+margin-top:0px;
+padding-top:0px;
+}
+.tree_list_name{
+    text-align: center;
+     padding-top: 5px;
+}

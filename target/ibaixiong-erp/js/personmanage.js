@@ -1,0 +1,29 @@
+/**
+ * Created by junfei on 2015/8/27.
+ */
+$(document).ready(function(){
+    $('.addrole').on('click',function(){
+        $('.addrolepop').show();
+    });
+    $('.addrolebtn').on('click',function(){
+        $('.addrolepop').hide();
+    });
+    $('.addperson').on('click',function(){
+        $('.addpersonpop').show();
+    });
+    $('.addpersonbtn').on('click',function(){
+        $('.addpersonpop').hide();
+    });
+    $('.forbidden').on('click',function(){
+        $('.forbiddenpop').show();
+    });
+    var width=$('.partlist').width();
+    console.log(width);
+    $('.inforbox').css('width',width);
+    $('.switch').on('click',function(){
+        $('.switched').removeClass('switched');
+        $('.addrolepop,.addpersonpop').hide();
+        $('.selectinforbox').removeClass('selectinforbox');
+        $(this).addClass('switched').next('.inforbox').addClass('selectinforbox');
+    });
+});

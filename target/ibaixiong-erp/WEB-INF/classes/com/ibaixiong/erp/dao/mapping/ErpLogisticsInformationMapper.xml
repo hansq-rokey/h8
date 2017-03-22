@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ibaixiong.erp.dao.storage.ErpLogisticsInformationDao" >
+  <resultMap id="BaseResultMap" type="com.ibaixiong.entity.ErpLogisticsInformation" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date_time" property="createDateTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="invalid" property="invalid" jdbcType="TINYINT" />
+    <result column="express_id" property="expressId" jdbcType="BIGINT" />
+    <result column="logistic_company_id" property="logisticCompanyId" jdbcType="VARCHAR" />
+    <result column="logistic_id" property="logisticId" jdbcType="VARCHAR" />
+    <result column="mail_no" property="mailNo" jdbcType="VARCHAR" />
+    <result column="order_source" property="orderSource" jdbcType="VARCHAR" />
+    <result column="service_type" property="serviceType" jdbcType="CHAR" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="business_network_no" property="businessNetworkNo" jdbcType="VARCHAR" />
+    <result column="to_network_no" property="toNetworkNo" jdbcType="VARCHAR" />
+    <result column="cargo_name" property="cargoName" jdbcType="VARCHAR" />
+    <result column="special" property="special" jdbcType="CHAR" />
+    <result column="total_number" property="totalNumber" jdbcType="INTEGER" />
+    <result column="total_weight" property="totalWeight" jdbcType="DOUBLE" />
+    <result column="total_volume" property="totalVolume" jdbcType="DOUBLE" />
+    <result column="pay_type" property="payType" jdbcType="CHAR" />
+    <result column="transport_type" property="transportType" jdbcType="VARCHAR" />
+    <result column="insurance_value" property="insuranceValue" jdbcType="DECIMAL" />
+    <result column="cod_type" property="codType" jdbcType="CHAR" />
+    <result column="cod_value" property="codValue" jdbcType="DECIMAL" />
+    <result column="vist_receive" property="vistReceive" jdbcType="CHAR" />
+    <result column="send_start_time" property="sendStartTime" jdbcType="TIMESTAMP" />
+    <result column="send_end_time" property="sendEndTime" jdbcType="TIMESTAMP" />
+    <result column="delivery_type" property="deliveryType" jdbcType="CHAR" />
+    <result column="back_sign_bill" property="backSignBill" jdbcType="CHAR" />
+    <result column="package_service" property="packageService" jdbcType="VARCHAR" />
+    <result column="sms_notify" property="smsNotify" jdbcType="CHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="back_result" property="backResult" jdbcType="VARCHAR" />
+    <result column="admin_id" property="adminId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_date_time, update_time, status, invalid, express_id, logistic_company_id, 
+    logistic_id, mail_no, order_source, service_type, customer_id, business_network_no, 
+    to_network_no, cargo_name, special, total_number, total_weight, total_volume, pay_type, 
+    transport_type, insurance_value, cod_type, cod_value, vist_receive, send_start_time, 
+    send_end_time, delivery_type, back_sign_bill, package_service, sms_notify, remark, 
+    back_result, admin_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_erp_logistics_information
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="getErpLogisticsInformationBylogisticID" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_erp_logistics_information
+    where logistic_id = #{logisticID,jdbcType=BIGINT} and invalid=0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_erp_logistics_information
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ibaixiong.entity.ErpLogisticsInformation" >
+    insert into tbl_erp_logistics_information (id, create_date_time, update_time, 
+      status, invalid, express_id, 
+      logistic_company_id, logistic_id, mail_no, 
+      order_source, service_type, customer_id, 
+      business_network_no, to_network_no, cargo_name, 
+      special, total_number, total_weight, 
+      total_volume, pay_type, transport_type, 
+      insurance_value, cod_type, cod_value, 
+      vist_receive, send_start_time, send_end_time, 
+      delivery_type, back_sign_bill, package_service, 
+      sms_notify, remark, back_result, 
+      admin_id)
+    values (#{id,jdbcType=BIGINT}, #{createDateTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=TINYINT}, #{invalid,jdbcType=TINYINT}, #{expressId,jdbcType=BIGINT}, 
+      #{logisticCompanyId,jdbcType=VARCHAR}, #{logisticId,jdbcType=VARCHAR}, #{mailNo,jdbcType=VARCHAR}, 
+      #{orderSource,jdbcType=VARCHAR}, #{serviceType,jdbcType=CHAR}, #{customerId,jdbcType=VARCHAR}, 
+      #{businessNetworkNo,jdbcType=VARCHAR}, #{toNetworkNo,jdbcType=VARCHAR}, #{cargoName,jdbcType=VARCHAR}, 
+      #{special,jdbcType=CHAR}, #{totalNumber,jdbcType=INTEGER}, #{totalWeight,jdbcType=DOUBLE}, 
+      #{totalVolume,jdbcType=DOUBLE}, #{payType,jdbcType=CHAR}, #{transportType,jdbcType=VARCHAR}, 
+      #{insuranceValue,jdbcType=DECIMAL}, #{codType,jdbcType=CHAR}, #{codValue,jdbcType=DECIMAL}, 
+      #{vistReceive,jdbcType=CHAR}, #{sendStartTime,jdbcType=TIMESTAMP}, #{sendEndTime,jdbcType=TIMESTAMP}, 
+      #{deliveryType,jdbcType=CHAR}, #{backSignBill,jdbcType=CHAR}, #{packageService,jdbcType=VARCHAR}, 
+      #{smsNotify,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}, #{backResult,jdbcType=VARCHAR}, 
+      #{adminId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ibaixiong.entity.ErpLogisticsInformation" useGeneratedKeys="true" keyProperty="id">
+    insert into tbl_erp_logistics_information
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="createDateTime != null" >
+        create_date_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="invalid != null" >
+        invalid,
+      </if>
+      <if test="expressId != null" >
+        express_id,
+      </if>
+      <if test="logisticCompanyId != null" >
+        logistic_company_id,
+      </if>
+      <if test="logisticId != null" >
+        logistic_id,
+      </if>
+      <if test="mailNo != null" >
+        mail_no,
+      </if>
+      <if test="orderSource != null" >
+        order_source,
+      </if>
+      <if test="serviceType != null" >
+        service_type,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="businessNetworkNo != null" >
+        business_network_no,
+      </if>
+      <if test="toNetworkNo != null" >
+        to_network_no,
+      </if>
+      <if test="cargoName != null" >
+        cargo_name,
+      </if>
+      <if test="special != null" >
+        special,
+      </if>
+      <if test="totalNumber != null" >
+        total_number,
+      </if>
+      <if test="totalWeight != null" >
+        total_weight,
+      </if>
+      <if test="totalVolume != null" >
+        total_volume,
+      </if>
+      <if test="payType != null" >
+        pay_type,
+      </if>
+      <if test="transportType != null" >
+        transport_type,
+      </if>
+      <if test="insuranceValue != null" >
+        insurance_value,
+      </if>
+      <if test="codType != null" >
+        cod_type,
+      </if>
+      <if test="codValue != null" >
+        cod_value,
+      </if>
+      <if test="vistReceive != null" >
+        vist_receive,
+      </if>
+      <if test="sendStartTime != null" >
+        send_start_time,
+      </if>
+      <if test="sendEndTime != null" >
+        send_end_time,
+      </if>
+      <if test="deliveryType != null" >
+        delivery_type,
+      </if>
+      <if test="backSignBill != null" >
+        back_sign_bill,
+      </if>
+      <if test="packageService != null" >
+        package_service,
+      </if>
+      <if test="smsNotify != null" >
+        sms_notify,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="backResult != null" >
+        back_result,
+      </if>
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="createDateTime != null" >
+        #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="expressId != null" >
+        #{expressId,jdbcType=BIGINT},
+      </if>
+      <if test="logisticCompanyId != null" >
+        #{logisticCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticId != null" >
+        #{logisticId,jdbcType=VARCHAR},
+      </if>
+      <if test="mailNo != null" >
+        #{mailNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSource != null" >
+        #{orderSource,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceType != null" >
+        #{serviceType,jdbcType=CHAR},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="businessNetworkNo != null" >
+        #{businessNetworkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="toNetworkNo != null" >
+        #{toNetworkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoName != null" >
+        #{cargoName,jdbcType=VARCHAR},
+      </if>
+      <if test="special != null" >
+        #{special,jdbcType=CHAR},
+      </if>
+      <if test="totalNumber != null" >
+        #{totalNumber,jdbcType=INTEGER},
+      </if>
+      <if test="totalWeight != null" >
+        #{totalWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="totalVolume != null" >
+        #{totalVolume,jdbcType=DOUBLE},
+      </if>
+      <if test="payType != null" >
+        #{payType,jdbcType=CHAR},
+      </if>
+      <if test="transportType != null" >
+        #{transportType,jdbcType=VARCHAR},
+      </if>
+      <if test="insuranceValue != null" >
+        #{insuranceValue,jdbcType=DECIMAL},
+      </if>
+      <if test="codType != null" >
+        #{codType,jdbcType=CHAR},
+      </if>
+      <if test="codValue != null" >
+        #{codValue,jdbcType=DECIMAL},
+      </if>
+      <if test="vistReceive != null" >
+        #{vistReceive,jdbcType=CHAR},
+      </if>
+      <if test="sendStartTime != null" >
+        #{sendStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendEndTime != null" >
+        #{sendEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryType != null" >
+        #{deliveryType,jdbcType=CHAR},
+      </if>
+      <if test="backSignBill != null" >
+        #{backSignBill,jdbcType=CHAR},
+      </if>
+      <if test="packageService != null" >
+        #{packageService,jdbcType=VARCHAR},
+      </if>
+      <if test="smsNotify != null" >
+        #{smsNotify,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="backResult != null" >
+        #{backResult,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ibaixiong.entity.ErpLogisticsInformation" >
+    update tbl_erp_logistics_information
+    <set >
+      <if test="createDateTime != null" >
+        create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        invalid = #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="expressId != null" >
+        express_id = #{expressId,jdbcType=BIGINT},
+      </if>
+      <if test="logisticCompanyId != null" >
+        logistic_company_id = #{logisticCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticId != null" >
+        logistic_id = #{logisticId,jdbcType=VARCHAR},
+      </if>
+      <if test="mailNo != null" >
+        mail_no = #{mailNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSource != null" >
+        order_source = #{orderSource,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceType != null" >
+        service_type = #{serviceType,jdbcType=CHAR},
+      </if>
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="businessNetworkNo != null" >
+        business_network_no = #{businessNetworkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="toNetworkNo != null" >
+        to_network_no = #{toNetworkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoName != null" >
+        cargo_name = #{cargoName,jdbcType=VARCHAR},
+      </if>
+      <if test="special != null" >
+        special = #{special,jdbcType=CHAR},
+      </if>
+      <if test="totalNumber != null" >
+        total_number = #{totalNumber,jdbcType=INTEGER},
+      </if>
+      <if test="totalWeight != null" >
+        total_weight = #{totalWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="totalVolume != null" >
+        total_volume = #{totalVolume,jdbcType=DOUBLE},
+      </if>
+      <if test="payType != null" >
+        pay_type = #{payType,jdbcType=CHAR},
+      </if>
+      <if test="transportType != null" >
+        transport_type = #{transportType,jdbcType=VARCHAR},
+      </if>
+      <if test="insuranceValue != null" >
+        insurance_value = #{insuranceValue,jdbcType=DECIMAL},
+      </if>
+      <if test="codType != null" >
+        cod_type = #{codType,jdbcType=CHAR},
+      </if>
+      <if test="codValue != null" >
+        cod_value = #{codValue,jdbcType=DECIMAL},
+      </if>
+      <if test="vistReceive != null" >
+        vist_receive = #{vistReceive,jdbcType=CHAR},
+      </if>
+      <if test="sendStartTime != null" >
+        send_start_time = #{sendStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendEndTime != null" >
+        send_end_time = #{sendEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryType != null" >
+        delivery_type = #{deliveryType,jdbcType=CHAR},
+      </if>
+      <if test="backSignBill != null" >
+        back_sign_bill = #{backSignBill,jdbcType=CHAR},
+      </if>
+      <if test="packageService != null" >
+        package_service = #{packageService,jdbcType=VARCHAR},
+      </if>
+      <if test="smsNotify != null" >
+        sms_notify = #{smsNotify,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="backResult != null" >
+        back_result = #{backResult,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null" >
+        admin_id = #{adminId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ibaixiong.entity.ErpLogisticsInformation" >
+    update tbl_erp_logistics_information
+    set create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      invalid = #{invalid,jdbcType=TINYINT},
+      express_id = #{expressId,jdbcType=BIGINT},
+      logistic_company_id = #{logisticCompanyId,jdbcType=VARCHAR},
+      logistic_id = #{logisticId,jdbcType=VARCHAR},
+      mail_no = #{mailNo,jdbcType=VARCHAR},
+      order_source = #{orderSource,jdbcType=VARCHAR},
+      service_type = #{serviceType,jdbcType=CHAR},
+      customer_id = #{customerId,jdbcType=VARCHAR},
+      business_network_no = #{businessNetworkNo,jdbcType=VARCHAR},
+      to_network_no = #{toNetworkNo,jdbcType=VARCHAR},
+      cargo_name = #{cargoName,jdbcType=VARCHAR},
+      special = #{special,jdbcType=CHAR},
+      total_number = #{totalNumber,jdbcType=INTEGER},
+      total_weight = #{totalWeight,jdbcType=DOUBLE},
+      total_volume = #{totalVolume,jdbcType=DOUBLE},
+      pay_type = #{payType,jdbcType=CHAR},
+      transport_type = #{transportType,jdbcType=VARCHAR},
+      insurance_value = #{insuranceValue,jdbcType=DECIMAL},
+      cod_type = #{codType,jdbcType=CHAR},
+      cod_value = #{codValue,jdbcType=DECIMAL},
+      vist_receive = #{vistReceive,jdbcType=CHAR},
+      send_start_time = #{sendStartTime,jdbcType=TIMESTAMP},
+      send_end_time = #{sendEndTime,jdbcType=TIMESTAMP},
+      delivery_type = #{deliveryType,jdbcType=CHAR},
+      back_sign_bill = #{backSignBill,jdbcType=CHAR},
+      package_service = #{packageService,jdbcType=VARCHAR},
+      sms_notify = #{smsNotify,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      back_result = #{backResult,jdbcType=VARCHAR},
+      admin_id = #{adminId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
